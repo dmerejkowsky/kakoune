@@ -10,7 +10,7 @@ A shell command is appended to the one set in this option at runtime} \
                    'rxvt           -e sh -c' \
                    'roxterm        -e sh -c' \
                    'mintty         -e sh -c' \
-                   'sakura         -e      ' \
+                   'sakura         -x      ' \
                    'gnome-terminal -e      ' \
                    'xfce4-terminal -e sh -c' ; do
         terminal=${termcmd%% *}
