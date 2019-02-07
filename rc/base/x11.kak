@@ -8,12 +8,11 @@ A shell command is appended to the one set in this option at runtime} \
                    'termite        -e      ' \
                    'urxvt          -e sh -c' \
                    'rxvt           -e sh -c' \
-                   'xterm          -e sh -c' \
                    'roxterm        -e sh -c' \
                    'mintty         -e sh -c' \
-                   'sakura         -x      ' \
+                   'sakura         -e      ' \
                    'gnome-terminal -e      ' \
-                   'xfce4-terminal -e      ' ; do
+                   'xfce4-terminal -e sh -c' ; do
         terminal=${termcmd%% *}
         if command -v $terminal >/dev/null 2>&1; then
             printf %s\\n "$termcmd"
