@@ -1,4 +1,4 @@
-colorscheme base16
+colorscheme desertex
 add-highlighter global/ wrap -word
 
 eval %sh{kak-lsp --kakoune -s $kak_session}
