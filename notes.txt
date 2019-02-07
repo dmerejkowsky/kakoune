@@ -1,0 +1,41 @@
+# Cheat sheet
+
+
+vim         kakoune
+-----------|---------
+dd         |   xd
+$          |   a-l
+^          |   a-h
+W,B,E      |   a-w, a-b, a-e
+x          |   d
+r          |   c
+R          |   c (ditto)
+Vjjj       |   xXXX
+_d         |   a-d
+J          |   a-j
+>>, <<     |   >, <
+gu, gU     |   ~, `
+:retab     |   @, a-@
+c-v$A      |   <d-s>A
+vip        |   <a-i>p
+}          |   ]p
+cc         |   ?
+vit        |   <a-f>> <a-;> T<     # berk
+<c-v>j     |   C
+<c-v>k     |   <a-C>
+expandtabs |  yunowork ????
+
+
+# Cool stuff
+
+Insert empty line below/after cursor a-o, a-O 
+History: u, U, a-u, a-U 
+Trim selection with `_` 
+Rotate selection content: <a-)>, <a-(> 
+
+
+# Questions
+
+* How to replace a line? -- `xHc` seems ackward
+* alt-. does not do what I expect :/
+* How to select from beginning of indentation?
