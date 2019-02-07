@@ -8,3 +8,9 @@ map global user c ':enter-user-mode cd<ret>'
 
 map global user f ':find '
 map global user g ':grep '
+
+# Put yanked stuff in the clipboard
+hook global NormalKey y %{ nop %sh{
+  printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
+}}
+
