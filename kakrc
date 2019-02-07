@@ -16,3 +16,8 @@ hook global NormalKey y %{ nop %sh{
 
 unset-face global DiagnosticWarning
 unset-face global DiagnosticError
+
+hook global InsertChar j %{ try %{
+  exec -draft hH <a-k>jj<ret> d
+  exec <esc>
+}}
