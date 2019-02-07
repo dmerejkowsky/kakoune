@@ -27,7 +27,9 @@ expandtabs |  yunowork ????
 
 # TODO
 
-* Use rg instead of `grep` please
+* Use rg instead of `grep` 
+* lsp user mode
+* Navigate command history?
 
 # Cool stuff
 
