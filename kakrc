@@ -14,3 +14,5 @@ hook global NormalKey y %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
 }}
 
+unset-face global DiagnosticWarning
+unset-face global DiagnosticError
