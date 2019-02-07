@@ -19,12 +19,15 @@ gu, gU     |   ~, `
 c-v$A      |   <d-s>A
 vip        |   <a-i>p
 }          |   ]p
-cc         |   ?
+cc         |   gi <a-l>
 vit        |   <a-f>> <a-;> T<     # berk
 <c-v>j     |   C
 <c-v>k     |   <a-C>
 expandtabs |  yunowork ????
 
+# TODO
+
+* Use rg instead of `grep` please
 
 # Cool stuff
 
@@ -36,6 +39,3 @@ Rotate selection content: <a-)>, <a-(>
 
 # Questions
 
-* How to replace a line? -- `xHc` seems ackward
-* alt-. does not do what I expect :/
-* How to select from beginning of indentation?
