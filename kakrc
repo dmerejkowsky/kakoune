@@ -6,7 +6,12 @@ lsp-enable
 
 set-option global ui_options 'ncurses_assistant=cat'
 map global user c ':enter-user-mode cd<ret>'
+
+map global user l ':enter-user-mode lsp<ret>'
+map global lsp l '<esc>: lsp-diagnostics<ret>'  -docstring 'show all diagnostics'
+
 map global user m ':make<ret>'
+
 
 map global user f ':find '
 map global user g ':grep '
