@@ -25,19 +25,8 @@ vit        |   <a-f>> <a-;> T<     # berk
 <c-v>k     |   <a-C>
 expandtabs |  yunowork ????
 
-# TODO
+# TODO/ideas
 
 * Use rg instead of `grep` 
 * lsp user mode
-* Navigate command history?
-
-# Cool stuff
-
-Insert empty line below/after cursor a-o, a-O 
-History: u, U, a-u, a-U 
-Trim selection with `_` 
-Rotate selection content: <a-)>, <a-(> 
-
-
-# Questions
-
+* Navigate command history - persist it in a file if you have to
