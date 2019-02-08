@@ -16,6 +16,8 @@ hook global NormalKey y %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
 }}
 
+# Use only gutter signs for lsp diagnostics,
+# but keep the color in the rest of the line as-is
 unset-face global DiagnosticWarning
 unset-face global DiagnosticError
 
