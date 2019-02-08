@@ -6,13 +6,14 @@ vim         kakoune
 dd         |   xd
 $          |   a-l
 ^          |   a-h
-W,B,E      |   a-w, a-b, a-e
+w,b,e      |   w,b,e (move) / W,B,E (extend)
+W,B,E      |   <a-w>, <a-b>, <a-e>
 x          |   d
 r          |   c
 R          |   c (ditto)
 Vjjj       |   xXXX
-_d         |   a-d
-J          |   a-j
+_d         |   <a-d>
+J          |   <a-j>
 >>, <<     |   >, <
 gu, gU     |   ~, `
 :retab     |   @, a-@
@@ -23,7 +24,7 @@ cc         |   gi <a-l>
 vit        |   <a-f>> <a-;> T<     # berk
 <c-v>j     |   C
 <c-v>k     |   <a-C>
-expandtabs |  yunowork ????
+expandtabs |  editorconfig
 
 # TODO/ideas
 
