@@ -20,6 +20,7 @@ hook global NormalKey y %{ nop %sh{
 # but keep the color in the rest of the line as-is
 unset-face global DiagnosticWarning
 unset-face global DiagnosticError
+set-option global startup_info_version 20190120
 
 hook global InsertChar j %{ try %{
   exec -draft hH <a-k>jj<ret> d
