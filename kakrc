@@ -1,3 +1,4 @@
+
 colorscheme desertex
 add-highlighter global/ wrap -word
 
@@ -20,6 +21,10 @@ map global user g ':grep '
 hook global NormalKey y %{ nop %sh{
   printf %s "$kak_main_reg_dquote" | xsel --input --clipboard
 }}
+
+# Yank stuff from the system clipboard
+map global user P '!xsel --output --clipboard<ret>'
+map global user p '<a-!>xsel --output --clipboard<ret>'
 
 # Use only gutter signs for lsp diagnostics,
 # but keep the color in the rest of the line as-is
