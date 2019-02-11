@@ -31,3 +31,4 @@ expandtabs |  editorconfig
 * Use rg instead of `grep` 
 * lsp user mode
 * Navigate command history - persist it in a file if you have to
+* Find a way to copy/paste from one window to the other
