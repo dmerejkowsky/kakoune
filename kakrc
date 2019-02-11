@@ -5,6 +5,8 @@ eval %sh{kak-lsp --kakoune -s $kak_session}
 lsp-enable
 
 set-option global ui_options 'ncurses_assistant=cat'
+set-option global grepcmd 'rg --no-heading --line-number --column --sort path'
+
 
 declare-option str project_working_dir %sh{ pwd }
 map global user c ':enter-user-mode cd<ret>' -docstring 'enter cd user mode'
