@@ -1,5 +1,5 @@
 declare-option -docstring "shell command run to search for subtext in a file/directory" \
-    str grepcmd 'grep -RHn'
+    str grepcmd 'rg --no-heading --line-number --column --sort path'
 declare-option -docstring "name of the client in which utilities display information" \
     str toolsclient
 declare-option -hidden int grep_current_line 0
