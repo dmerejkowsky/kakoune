@@ -1,4 +1,3 @@
-
 colorscheme desertex
 add-highlighter global/ wrap -word
 
@@ -13,13 +12,13 @@ map global user l ':enter-user-mode lsp<ret>' -docstring 'enter lsp user mode'
 map global lsp l '<esc>: lsp-diagnostics<ret>'  -docstring 'show all diagnostics'
 
 map global user m ':make<ret>' -docstring 'run make'
-map global user m ':make<ret>'
 
+declare-user-mode spell
+map global user s ':enter-user-mode spell<ret>' -docstring 'enter spell user mode'
+map global spell n '<esc>:spell-next<ret>' -docstring 'go to next spell error'
 
 map global user f ':find ' -docstring 'run find'
 map global user g ':grep ' -docstring 'run grep'
-map global user f ':find '
-map global user g ':grep '
 
 # Put yanked stuff in the clipboard
 hook global NormalKey y %{ nop %sh{
