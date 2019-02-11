@@ -24,7 +24,10 @@ cc         |   gi <a-l>
 vit        |   <a-f>> <a-;> T<     # berk
 <c-v>j     |   C
 <c-v>k     |   <a-C>
-expandtabs |  editorconfig
+expandtabs |  .editorconfig
+:next      |  :bn
+:previous  |  :bp
+:rewind    |  N/A
 
 # TODO/ideas
 
