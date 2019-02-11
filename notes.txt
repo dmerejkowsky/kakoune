@@ -28,6 +28,7 @@ expandtabs |  .editorconfig
 :next      |  :bn
 :previous  |  :bp
 :rewind    |  N/A
+:wqa       |  :waq
 
 # TODO/ideas
 
