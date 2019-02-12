@@ -9,7 +9,7 @@ set-option global ui_options 'ncurses_assistant=cat'
 map global user c ':enter-user-mode cd<ret>' -docstring 'enter cd user mode'
 
 map global user l ':enter-user-mode lsp<ret>' -docstring 'enter lsp user mode'
-map global lsp l '<esc>: lsp-diagnostics<ret>'  -docstring 'show all diagnostics'
+map global lsp l '<esc>:lsp-diagnostics<ret>'  -docstring 'show all diagnostics'
 
 map global user m ':make<ret>' -docstring 'run make'
 
