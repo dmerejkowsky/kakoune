@@ -15,6 +15,9 @@ set-option global ui_options 'ncurses_assistant=cat'
 # but keep the color in the rest of the line as-is
 unset-face global DiagnosticWarning
 unset-face global DiagnosticError
+set-face global LineFlagErrors green+bi
+set-option global lsp_diagnostic_line_warning_sign !
+set-option global lsp_diagnostic_line_error_sign  ✘
 
 ## Plugins customisation
 set-option global grepcmd 'rg --no-heading --line-number --column --sort path'
