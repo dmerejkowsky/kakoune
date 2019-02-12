@@ -38,3 +38,4 @@ expandtabs |  .editorconfig
   * Easy addition of word under cursor to 
     personnal dict
  (Maybe write a LSP server that knows how to spellcheck?)
+* File history (keep a persistent list of every file that was written)
