@@ -6,7 +6,10 @@ lsp-enable
 
 set-option global ui_options 'ncurses_assistant=cat'
 
+declare-option str project_working_dir %sh{ pwd }
 map global user c ':enter-user-mode cd<ret>' -docstring 'enter cd user mode'
+map global cd c ':change-directory %val{opt_project_working_dir}<ret>' -docstring 'reset working directory'
+alias global pwd print-working-directory
 
 map global user l ':enter-user-mode lsp<ret>' -docstring 'enter lsp user mode'
 map global lsp l '<esc>:lsp-diagnostics<ret>'  -docstring 'show all diagnostics'
