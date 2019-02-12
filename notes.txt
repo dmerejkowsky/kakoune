@@ -32,7 +32,6 @@ expandtabs |  .editorconfig
 
 # TODO/ideas
 
-* Use rg instead of `grep` 
 * Better spell checking: 
   * Spell check in realtime
   * Easy addition of word under cursor to 
