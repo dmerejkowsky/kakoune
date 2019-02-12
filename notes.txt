@@ -1,4 +1,19 @@
-# Cheat sheet
+# TODO/ideas
+
+* LSP:
+  * Use lsp-find-next-error --include-warnings
+  * Display warnings/error count in status line
+
+* Better spell checking: 
+  * Spell check in realtime
+  * Easy addition of word under cursor to 
+    personnal dict
+ (Maybe write a LSP server that knows how to spellcheck?)
+
+
+
+
+# vim cheat sheet
 
 
 vim         kakoune
@@ -30,11 +45,3 @@ expandtabs |  .editorconfig
 :rewind    |  N/A
 :wqa       |  :waq
 
-# TODO/ideas
-
-* Better spell checking: 
-  * Spell check in realtime
-  * Easy addition of word under cursor to 
-    personnal dict
- (Maybe write a LSP server that knows how to spellcheck?)
-* File history (keep a persistent list of every file that was written)
