@@ -16,6 +16,8 @@ map global user m ':make<ret>' -docstring 'run make'
 declare-user-mode spell
 map global user s ':enter-user-mode spell<ret>' -docstring 'enter spell user mode'
 map global spell n '<esc>:spell-next<ret>' -docstring 'go to next spell error'
+map global spell f '<esc>:spell fr<ret>' -docstring 'run spell check in French'
+map global spell e '<esc>:spell en<ret>' -docstring 'run spell check in English'
 
 map global user f ':find ' -docstring 'run find'
 map global user g ':grep ' -docstring 'run grep'
@@ -29,7 +31,7 @@ hook global NormalKey y %{ nop %sh{
 map global user P '!xsel --output --clipboard<ret>' -docstring 'yank from system clipboard after selection'
 map global user p '<a-!>xsel --output --clipboard<ret>' -docstring 'yank from system clipboard before selection'
 
-# Use only gutter signs for lsp diagnostics,
+# Use only gutter signs for LSP diagnostics,
 # but keep the color in the rest of the line as-is
 unset-face global DiagnosticWarning
 unset-face global DiagnosticError
