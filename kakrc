@@ -24,6 +24,7 @@ map global spell e '<esc>:spell en<ret>' -docstring 'run spell check in English'
 
 map global user f ':find ' -docstring 'run find'
 map global user g ':grep ' -docstring 'run grep'
+map global user b ':set-option buffer filetype ' -docstring 'set filetype for the current buffer'
 
 # Put yanked stuff in the clipboard
 hook global NormalKey y %{ nop %sh{
