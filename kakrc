@@ -1,5 +1,11 @@
 ## Hide release notes from latest version
+
 set-option global startup_info_version 20190120
+## LSP
+eval %sh{kak-lsp --kakoune -s $kak_session}
+lsp-enable
+map global user l ':enter-user-mode lsp<ret>' -docstring 'enter lsp user mode'
+map global lsp l '<esc>:lsp-diagnostics<ret>'  -docstring 'show all diagnostics'
 
 ## UI options
 colorscheme desertex
@@ -20,11 +26,6 @@ map global cd c ':change-directory %val{opt_project_working_dir}<ret>' -docstrin
 map global cd o ':evaluate-commands %sh{ cwd-history list --kakoune }<ret>' -docstring 'open old working directory'
 alias global pwd print-working-directory
 
-## LSP
-eval %sh{kak-lsp --kakoune -s $kak_session}
-lsp-enable
-map global user l ':enter-user-mode lsp<ret>' -docstring 'enter lsp user mode'
-map global lsp l '<esc>:lsp-diagnostics<ret>'  -docstring 'show all diagnostics'
 
 ## Spell check
 declare-user-mode spell
