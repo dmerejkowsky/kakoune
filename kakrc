@@ -17,6 +17,7 @@ set-option global grepcmd 'rg --no-heading --line-number --column --sort path'
 declare-option str project_working_dir %sh{ pwd }
 map global user c ':enter-user-mode cd<ret>' -docstring 'enter cd user mode'
 map global cd c ':change-directory %val{opt_project_working_dir}<ret>' -docstring 'reset working directory'
+map global cd o ':evaluate-commands %sh{ cwd-history list --kakoune }<ret>' -docstring 'open old working directory'
 alias global pwd print-working-directory
 
 ## LSP
@@ -44,6 +45,12 @@ hook global NormalKey y %{ nop %sh{
 }}
 map global user P '!xsel --output --clipboard<ret>' -docstring 'yank from system clipboard after selection'
 map global user p '<a-!>xsel --output --clipboard<ret>' -docstring 'yank from system clipboard before selection'
+
+## Persistent file history
+# (forgive me, mawwww, but persisting state is cool sometimes)
+hook global BufOpenFile .* %{ %sh{ mru-files add  "${kak_hook_param}" } }
+map global user o ':evaluate-commands %sh{ mru-files list --kakoune }<ret>' -docstring 'open old files'
+
 
 ## jj is escape 
 hook global InsertChar j %{ try %{
