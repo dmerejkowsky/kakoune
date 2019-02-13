@@ -4,9 +4,9 @@
   * Use lsp-find-next-error --include-warnings
   * Display warnings/error count in status line
 
-* Better spell checking: 
+* Better spell checking:
   * Spell check in realtime
-  * Easy addition of word under cursor to 
+  * Easy addition of word under cursor to
     personnal dict
  (Maybe write a LSP server that knows how to spellcheck?)
 
@@ -44,4 +44,3 @@ expandtabs |  .editorconfig
 :previous  |  :bp
 :rewind    |  N/A
 :wqa       |  :waq
-

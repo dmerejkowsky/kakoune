@@ -55,11 +55,14 @@ map global user p '<a-!>xsel --output --clipboard<ret>' -docstring 'yank from sy
 hook global BufOpenFile .* %{ %sh{ mru-files add  "${kak_hook_param}" } }
 map global user o ':evaluate-commands %sh{ mru-files list --kakoune }<ret>' -docstring 'open old files'
 
-## Always trim trailing whitespace (no mercy)
-define-command trim-trailing-whitespace %{
+## Whitespace cleaning
+# * Clean trailing whitespace
+# * Clean blank lines at the end of file
+define-command cleanup-whitespace %{
     try %{ execute-keys -draft \% s \h+$ <ret> d }
+    try %{ execute-keys -draft gj [ <space> d }
 }
-hook global BufWritePre .* trim-trailing-whitespace
+hook global BufWritePre .* cleanup-whitespace
 
 ## jj is escape 
 hook global InsertChar j %{ try %{
