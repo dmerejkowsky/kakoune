@@ -50,7 +50,7 @@ hook global NormalKey y %{ nop %sh{
 map global user P '!xsel --output --clipboard<ret>' -docstring 'yank from system clipboard after selection'
 map global user p '<a-!>xsel --output --clipboard<ret>' -docstring 'yank from system clipboard before selection'
 
-## Persistent file history
+## Persistent file and working dirs history
 # (forgive me, mawwww, but persisting state is cool sometimes)
 hook global BufOpenFile .* %{ %sh{ mru-files add  "${kak_hook_param}" } }
 map global user o ':evaluate-commands %sh{ mru-files list --kakoune }<ret>' -docstring 'open old files'
