@@ -35,6 +35,7 @@ alias global pwd print-working-directory
 declare-user-mode spell
 map global user s ':enter-user-mode spell<ret>' -docstring 'enter spell user mode'
 map global spell n '<esc>:spell-next<ret>' -docstring 'go to next spell error'
+map global spell r '<esc>:spell-replace<ret>' -docstring 'suggest a list of replacements'
 map global spell f '<esc>:spell fr<ret>' -docstring 'run spell check in French'
 map global spell e '<esc>:spell en<ret>' -docstring 'run spell check in English'
 
