@@ -43,6 +43,10 @@ map global user m ':make<ret>' -docstring 'run make'
 map global user f ':find ' -docstring 'run find'
 map global user g ':grep ' -docstring 'run grep'
 map global user b ':set-option buffer filetype ' -docstring 'set filetype for the current buffer'
+# Yeah, I know waq is the default alias, but come on, can't you make
+# an exception and keep the vim stuff working ?
+alias global wqa write-all-quit
+
 
 ## Copy/pasting
 hook global NormalKey y %{ nop %sh{
