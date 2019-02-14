@@ -1,5 +1,7 @@
 # TODO/ideas
 
+* surround
+
 * LSP:
   * Use lsp-find-next-error --include-warnings
   * Display warnings/error count in status line
