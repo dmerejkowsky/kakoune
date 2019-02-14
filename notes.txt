@@ -16,6 +16,8 @@
 
 vim         kakoune
 -----------|---------
+ma         |   "aZ
+`a         |   "az
 wqa        |   waq    # :/
 dd         |   xd
 $          |   a-l
