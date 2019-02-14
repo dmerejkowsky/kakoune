@@ -66,7 +66,7 @@ map global user o ':evaluate-commands %sh{ mru-files list --kakoune }<ret>' -doc
 # * Clean blank lines at the end of file
 define-command cleanup-whitespace %{
     try %{ execute-keys -draft \% s \h+$ <ret> d }
-    try %{ execute-keys -draft gj [ <space> d }
+    try %{ execute-keys -draft gj o <esc> <a-/> \n+ <ret> d }
 }
 hook global BufWritePre .* cleanup-whitespace
 
