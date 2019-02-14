@@ -32,7 +32,8 @@ public:
 
     void draw_status(const DisplayLine& status_line,
                      const DisplayLine& mode_line,
-                     const Face& default_face) override;
+                     const Face& default_face,
+                     const StringView& buffer_name) override;
 
     void menu_show(ConstArrayView<DisplayLine> items,
                    DisplayCoord anchor, Face fg, Face bg,
