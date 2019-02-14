@@ -2,10 +2,6 @@
 
 * surround
 
-* LSP:
-  * Use lsp-find-next-error --include-warnings
-  * Display warnings/error count in status line
-
 * Better spell checking:
   * Spell check in realtime
   * Easy addition of word under cursor to

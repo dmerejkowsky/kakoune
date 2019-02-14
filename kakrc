@@ -5,7 +5,6 @@ set-option global startup_info_version 20190120
 eval %sh{kak-lsp --kakoune -s $kak_session}
 lsp-enable
 map global user l ':enter-user-mode lsp<ret>' -docstring 'enter lsp user mode'
-map global lsp l '<esc>:lsp-diagnostics<ret>'  -docstring 'show all diagnostics'
 
 ## UI options
 colorscheme desertex
@@ -19,6 +18,8 @@ set-face global LineFlagErrors green+bi
 set-option global lsp_diagnostic_line_warning_sign !
 set-option global lsp_diagnostic_line_error_sign  ✘
 
+## Status line
+set-option global modelinefmt '%opt{lsp_diagnostic_error_count}✘  %opt{lsp_diagnostic_warning_count}! %val{bufname} %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]'
 ## Plugins customisation
 set-option global grepcmd 'rg --no-heading --line-number --column --sort path'
 
@@ -64,7 +65,7 @@ define-command cleanup-whitespace %{
 }
 hook global BufWritePre .* cleanup-whitespace
 
-## jj is escape 
+## jj is escape
 hook global InsertChar j %{ try %{
   exec -draft hH <a-k>jj<ret> d
   exec <esc>
