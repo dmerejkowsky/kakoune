@@ -258,10 +258,8 @@ void Client::redraw_ifn()
     if (m_ui_pending & InfoHide)
         m_ui->info_hide();
 
-    if (m_ui_pending & StatusLine) {
-        const auto buffer_name = m_window->buffer().name();
-        m_ui->draw_status(m_status_line, m_mode_line, faces["StatusLine"], buffer_name);
-    }
+    if (m_ui_pending & StatusLine)
+        m_ui->draw_status(m_status_line, m_mode_line, faces["StatusLine"]);
 
     auto cursor = m_input_handler.get_cursor_info();
     m_ui->set_cursor(cursor.first, cursor.second);

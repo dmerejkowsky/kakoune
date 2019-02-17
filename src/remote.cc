@@ -333,8 +333,7 @@ public:
 
     void draw_status(const DisplayLine& status_line,
                      const DisplayLine& mode_line,
-                     const Face& default_face,
-                     const StringView& buffer_name) override;
+                     const Face& default_face) override;
 
     void set_cursor(CursorMode mode, DisplayCoord coord) override;
 
@@ -482,14 +481,12 @@ void RemoteUI::draw(const DisplayBuffer& display_buffer,
 
 void RemoteUI::draw_status(const DisplayLine& status_line,
                            const DisplayLine& mode_line,
-                           const Face& default_face,
-                           const StringView& buffer_name)
+                           const Face& default_face)
 {
     MsgWriter msg{m_send_buffer, MessageType::DrawStatus};
     msg.write(status_line);
     msg.write(mode_line);
     msg.write(default_face);
-    msg.write(buffer_name);
     m_socket_watcher.events() |= FdEvents::Write;
 }
 
@@ -645,8 +642,7 @@ RemoteClient::RemoteClient(StringView session, StringView name, std::unique_ptr<
                 auto status_line = reader.read<DisplayLine>();
                 auto mode_line = reader.read<DisplayLine>();
                 auto default_face = reader.read<Face>();
-                auto buffer_name = reader.read<StringView>();
-                m_ui->draw_status(status_line, mode_line, default_face, buffer_name);
+                m_ui->draw_status(status_line, mode_line, default_face);
                 break;
             }
             case MessageType::SetCursor:

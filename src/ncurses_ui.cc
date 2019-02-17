@@ -423,8 +423,7 @@ void NCursesUI::draw(const DisplayBuffer& display_buffer,
 
 void NCursesUI::draw_status(const DisplayLine& status_line,
                             const DisplayLine& mode_line,
-                            const Face& default_face,
-                            const StringView& buffer_name)
+                            const Face& default_face)
 {
     const int status_line_pos = m_status_on_top ? 0 : (int)m_dimensions.line;
     wmove(m_window, status_line_pos, 0);
@@ -461,9 +460,13 @@ void NCursesUI::draw_status(const DisplayLine& status_line,
         char buf[4 + 511 + 2] = "\033]2;";
         // Fill title escape sequence buffer, removing non ascii characters
         auto buf_it = &buf[4], buf_end = &buf[4 + 511 - (sizeof(suffix) - 2)];
-        for (auto it = buffer_name.begin(), end = buffer_name.end();
-             it != end and buf_it != buf_end; utf8::to_next(it, end))
-            *buf_it++ = (*it >= 0x20 and *it <= 0x7e) ? *it : '?';
+        for (auto& atom : mode_line)
+        {
+            const auto str = atom.content();
+            for (auto it = str.begin(), end = str.end();
+                 it != end and buf_it != buf_end; utf8::to_next(it, end))
+                *buf_it++ = (*it >= 0x20 and *it <= 0x7e) ? *it : '?';
+        }
         for (auto c : suffix)
             *buf_it++ = c;
 

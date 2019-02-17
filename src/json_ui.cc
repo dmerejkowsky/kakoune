@@ -193,8 +193,7 @@ void JsonUI::draw(const DisplayBuffer& display_buffer,
 
 void JsonUI::draw_status(const DisplayLine& status_line,
                          const DisplayLine& mode_line,
-                         const Face& default_face,
-                         const StringView& buffer_name)
+                         const Face& default_face)
 {
     rpc_call("draw_status", status_line, mode_line, default_face);
 }
