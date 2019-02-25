@@ -161,7 +161,8 @@ add_library(kakoune
   ${_version_cpp}
 )
 target_compile_definitions(kakoune PUBLIC "KAKOUNE_RUNTIME_PATH=\"${CMAKE_SOURCE_DIR}/share/kak\"")
-target_include_directories(kakoune PUBLIC ${CURSES_INCLUDE_DIRS})
+# TODO: real include dir please
+target_include_directories(kakoune PUBLIC ${CURSES_INCLUDE_DIRS} src)
 target_link_libraries(kakoune ${CURSES_LIBRARIES})
 
 

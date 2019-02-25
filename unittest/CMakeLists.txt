@@ -1,5 +1,6 @@
 add_executable(test_kakoune
   test_ncurses.cpp
+  test_remote.cpp
   main.cpp
 )
 target_link_libraries(test_kakoune
