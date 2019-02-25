@@ -4,6 +4,6 @@
 
 
 TEST(Ncurses, Version) {
-    auto const actual = std::string{curses_version()};
+    const auto actual = std::string{curses_version()};
     EXPECT_FALSE(actual.empty());
 }
