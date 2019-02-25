@@ -105,11 +105,10 @@ inline void write_stderr(StringView str) { try { write(2, str); } catch (runtime
 
 String runtime_directory()
 {
-    char relpath[PATH_MAX+1];
-    format_to(relpath, "{}../share/kak", split_path(get_kak_binary_path()).first);
+    const char* kakoune_runtime = KAKOUNE_RUNTIME_PATH;
     struct stat st;
-    if (stat(relpath, &st) == 0 and S_ISDIR(st.st_mode))
-        return real_path(relpath);
+    if (stat(kakoune_runtime, &st) == 0 and S_ISDIR(st.st_mode))
+        return real_path(kakoune_runtime);
 
     return "/usr/share/kak";
 }
