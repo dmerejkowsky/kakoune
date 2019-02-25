@@ -160,10 +160,13 @@ add_library(kakoune
 
   ${_version_cpp}
 )
+
 set(_kak_defs)
+target_compile_definitions(kakoune PUBLIC "KAKOUNE_RUNTIME_PATH=\"${CMAKE_SOURCE_DIR}/share/kak\"")
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
   list(APPEND _kak_defs KAK_DEBUG=1)
 endif()
+
 target_compile_definitions(kakoune PUBLIC ${_kak_defs} )
 target_include_directories(kakoune PUBLIC ${CURSES_INCLUDE_DIRS})
 target_link_libraries(kakoune ${CURSES_LIBRARIES})
