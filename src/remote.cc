@@ -25,25 +25,6 @@
 namespace Kakoune
 {
 
-enum class MessageType : uint8_t
-{
-    Unknown,
-    Connect,
-    Command,
-    MenuShow,
-    MenuSelect,
-    MenuHide,
-    InfoShow,
-    InfoHide,
-    Draw,
-    DrawStatus,
-    SetCursor,
-    Refresh,
-    SetOptions,
-    Exit,
-    Key,
-};
-
 class MsgWriter
 {
 public:
