@@ -1,8 +1,8 @@
-#include "assert.hh"
+#include <kakoune/assert.hh>
 
-#include "backtrace.hh"
-#include "buffer_utils.hh"
-#include "exception.hh"
+#include <kakoune/backtrace.hh>
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/exception.hh>
 
 #if defined(__CYGWIN__)
 #include <windows.h>

@@ -1,14 +1,14 @@
-#include "regex_impl.hh"
+#include <kakoune/regex_impl.hh>
 
-#include "exception.hh"
-#include "string.hh"
-#include "unicode.hh"
-#include "unit_tests.hh"
-#include "utf8.hh"
-#include "utf8_iterator.hh"
-#include "string_utils.hh"
-#include "vector.hh"
-#include "utils.hh"
+#include <kakoune/exception.hh>
+#include <kakoune/string.hh>
+#include <kakoune/unicode.hh>
+#include <kakoune/unit_tests.hh>
+#include <kakoune/utf8.hh>
+#include <kakoune/utf8_iterator.hh>
+#include <kakoune/string_utils.hh>
+#include <kakoune/vector.hh>
+#include <kakoune/utils.hh>
 
 #include <cstring>
 

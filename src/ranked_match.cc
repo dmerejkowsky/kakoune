@@ -1,9 +1,9 @@
-#include "ranked_match.hh"
+#include <kakoune/ranked_match.hh>
 
-#include "flags.hh"
-#include "unit_tests.hh"
-#include "utf8_iterator.hh"
-#include "optional.hh"
+#include <kakoune/flags.hh>
+#include <kakoune/unit_tests.hh>
+#include <kakoune/utf8_iterator.hh>
+#include <kakoune/optional.hh>
 
 #include <algorithm>
 

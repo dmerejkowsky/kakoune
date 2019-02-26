@@ -1,7 +1,7 @@
-#include "ranges.hh"
-#include "unit_tests.hh"
-#include "string.hh"
-#include "string_utils.hh"
+#include <kakoune/ranges.hh>
+#include <kakoune/unit_tests.hh>
+#include <kakoune/string.hh>
+#include <kakoune/string_utils.hh>
 
 namespace Kakoune
 {

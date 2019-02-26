@@ -1,5 +1,5 @@
-#include "scope.hh"
-#include "context.hh"
+#include <kakoune/scope.hh>
+#include <kakoune/context.hh>
 
 namespace Kakoune
 {

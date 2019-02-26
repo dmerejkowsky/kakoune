@@ -1,14 +1,14 @@
-#include "json_ui.hh"
+#include <kakoune/json_ui.hh>
 
-#include "display_buffer.hh"
-#include "event_manager.hh"
-#include "exception.hh"
-#include "file.hh"
-#include "keys.hh"
-#include "ranges.hh"
-#include "string_utils.hh"
-#include "unit_tests.hh"
-#include "value.hh"
+#include <kakoune/display_buffer.hh>
+#include <kakoune/event_manager.hh>
+#include <kakoune/exception.hh>
+#include <kakoune/file.hh>
+#include <kakoune/keys.hh>
+#include <kakoune/ranges.hh>
+#include <kakoune/string_utils.hh>
+#include <kakoune/unit_tests.hh>
+#include <kakoune/value.hh>
 
 #include <utility>
 

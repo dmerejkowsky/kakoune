@@ -1,9 +1,9 @@
-#include "unit_tests.hh"
+#include <kakoune/unit_tests.hh>
 
-#include "assert.hh"
-#include "diff.hh"
-#include "utf8.hh"
-#include "string.hh"
+#include <kakoune/assert.hh>
+#include <kakoune/diff.hh>
+#include <kakoune/utf8.hh>
+#include <kakoune/string.hh>
 
 namespace Kakoune
 {

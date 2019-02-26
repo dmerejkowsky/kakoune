@@ -1,8 +1,8 @@
-#include "string_utils.hh"
+#include <kakoune/string_utils.hh>
 
-#include "exception.hh"
-#include "utf8_iterator.hh"
-#include "unit_tests.hh"
+#include <kakoune/exception.hh>
+#include <kakoune/utf8_iterator.hh>
+#include <kakoune/unit_tests.hh>
 
 namespace Kakoune
 {

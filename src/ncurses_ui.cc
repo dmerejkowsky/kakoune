@@ -1,10 +1,10 @@
-#include "ncurses_ui.hh"
+#include <kakoune/ncurses_ui.hh>
 
-#include "display_buffer.hh"
-#include "event_manager.hh"
-#include "keys.hh"
-#include "ranges.hh"
-#include "string_utils.hh"
+#include <kakoune/display_buffer.hh>
+#include <kakoune/event_manager.hh>
+#include <kakoune/keys.hh>
+#include <kakoune/ranges.hh>
+#include <kakoune/string_utils.hh>
 
 #include <algorithm>
 

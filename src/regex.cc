@@ -1,5 +1,5 @@
-#include "regex.hh"
-#include "ranges.hh"
+#include <kakoune/regex.hh>
+#include <kakoune/ranges.hh>
 
 namespace Kakoune
 {

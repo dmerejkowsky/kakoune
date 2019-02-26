@@ -1,6 +1,6 @@
-#include "highlighter.hh"
+#include <kakoune/highlighter.hh>
 
-#include "buffer_utils.hh"
+#include <kakoune/buffer_utils.hh>
 
 namespace Kakoune
 {

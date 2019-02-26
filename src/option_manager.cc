@@ -1,8 +1,8 @@
-#include "option_manager.hh"
+#include <kakoune/option_manager.hh>
 
-#include "assert.hh"
-#include "flags.hh"
-#include "scope.hh"
+#include <kakoune/assert.hh>
+#include <kakoune/flags.hh>
+#include <kakoune/scope.hh>
 
 namespace Kakoune
 {

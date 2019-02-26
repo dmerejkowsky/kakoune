@@ -1,5 +1,5 @@
-#include "shared_string.hh"
-#include "buffer_utils.hh"
+#include <kakoune/shared_string.hh>
+#include <kakoune/buffer_utils.hh>
 
 #include <cstring>
 

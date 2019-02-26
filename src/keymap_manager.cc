@@ -1,9 +1,9 @@
-#include "keymap_manager.hh"
+#include <kakoune/keymap_manager.hh>
 
-#include "array_view.hh"
-#include "assert.hh"
-#include "exception.hh"
-#include "string_utils.hh"
+#include <kakoune/array_view.hh>
+#include <kakoune/assert.hh>
+#include <kakoune/exception.hh>
+#include <kakoune/string_utils.hh>
 
 #include <algorithm>
 

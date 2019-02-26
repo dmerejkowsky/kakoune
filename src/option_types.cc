@@ -1,5 +1,5 @@
-#include "option_types.hh"
-#include "unit_tests.hh"
+#include <kakoune/option_types.hh>
+#include <kakoune/unit_tests.hh>
 
 namespace Kakoune
 {

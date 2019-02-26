@@ -1,4 +1,4 @@
-#include "hash.hh"
+#include <kakoune/hash.hh>
 
 #include <cstdint>
 #include <cstring>

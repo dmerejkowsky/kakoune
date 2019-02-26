@@ -1,9 +1,9 @@
-#include "hash_map.hh"
+#include <kakoune/hash_map.hh>
 
-#include "clock.hh"
-#include "string.hh"
-#include "buffer_utils.hh"
-#include "unit_tests.hh"
+#include <kakoune/clock.hh>
+#include <kakoune/string.hh>
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/unit_tests.hh>
 
 #include <random>
 #include <unordered_map>

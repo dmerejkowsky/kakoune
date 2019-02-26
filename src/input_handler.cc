@@ -1,22 +1,22 @@
 #include <utility>
 
-#include "input_handler.hh"
+#include <kakoune/input_handler.hh>
 
-#include "buffer_manager.hh"
-#include "buffer_utils.hh"
-#include "command_manager.hh"
-#include "client.hh"
-#include "event_manager.hh"
-#include "face_registry.hh"
-#include "insert_completer.hh"
-#include "normal.hh"
-#include "option_types.hh"
-#include "regex.hh"
-#include "register_manager.hh"
-#include "hash_map.hh"
-#include "user_interface.hh"
-#include "utf8.hh"
-#include "window.hh"
+#include <kakoune/buffer_manager.hh>
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/command_manager.hh>
+#include <kakoune/client.hh>
+#include <kakoune/event_manager.hh>
+#include <kakoune/face_registry.hh>
+#include <kakoune/insert_completer.hh>
+#include <kakoune/normal.hh>
+#include <kakoune/option_types.hh>
+#include <kakoune/regex.hh>
+#include <kakoune/register_manager.hh>
+#include <kakoune/hash_map.hh>
+#include <kakoune/user_interface.hh>
+#include <kakoune/utf8.hh>
+#include <kakoune/window.hh>
 
 namespace Kakoune
 {

@@ -1,8 +1,8 @@
-#include "completion.hh"
-#include "file.hh"
-#include "context.hh"
-#include "option_types.hh"
-#include "regex.hh"
+#include <kakoune/completion.hh>
+#include <kakoune/file.hh>
+#include <kakoune/context.hh>
+#include <kakoune/option_types.hh>
+#include <kakoune/regex.hh>
 
 namespace Kakoune
 {

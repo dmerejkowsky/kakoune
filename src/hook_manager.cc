@@ -1,15 +1,15 @@
-#include "hook_manager.hh"
+#include <kakoune/hook_manager.hh>
 
-#include "buffer_utils.hh"
-#include "clock.hh"
-#include "command_manager.hh"
-#include "context.hh"
-#include "display_buffer.hh"
-#include "face_registry.hh"
-#include "option.hh"
-#include "option_types.hh"
-#include "ranges.hh"
-#include "regex.hh"
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/clock.hh>
+#include <kakoune/command_manager.hh>
+#include <kakoune/context.hh>
+#include <kakoune/display_buffer.hh>
+#include <kakoune/face_registry.hh>
+#include <kakoune/option.hh>
+#include <kakoune/option_types.hh>
+#include <kakoune/ranges.hh>
+#include <kakoune/regex.hh>
 
 namespace Kakoune
 {

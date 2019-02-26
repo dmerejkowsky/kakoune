@@ -1,19 +1,19 @@
-#include "insert_completer.hh"
+#include <kakoune/insert_completer.hh>
 
-#include "buffer_manager.hh"
-#include "buffer_utils.hh"
-#include "client.hh"
-#include "changes.hh"
-#include "context.hh"
-#include "display_buffer.hh"
-#include "face_registry.hh"
-#include "file.hh"
-#include "regex.hh"
-#include "window.hh"
-#include "word_db.hh"
-#include "option_types.hh"
-#include "utf8_iterator.hh"
-#include "user_interface.hh"
+#include <kakoune/buffer_manager.hh>
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/client.hh>
+#include <kakoune/changes.hh>
+#include <kakoune/context.hh>
+#include <kakoune/display_buffer.hh>
+#include <kakoune/face_registry.hh>
+#include <kakoune/file.hh>
+#include <kakoune/regex.hh>
+#include <kakoune/window.hh>
+#include <kakoune/word_db.hh>
+#include <kakoune/option_types.hh>
+#include <kakoune/utf8_iterator.hh>
+#include <kakoune/user_interface.hh>
 
 #include <numeric>
 #include <utility>

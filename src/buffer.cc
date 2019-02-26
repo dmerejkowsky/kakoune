@@ -1,19 +1,19 @@
-#include "buffer.hh"
+#include <kakoune/buffer.hh>
 
-#include "assert.hh"
-#include "buffer_manager.hh"
-#include "buffer_utils.hh"
-#include "client.hh"
-#include "context.hh"
-#include "diff.hh"
-#include "file.hh"
-#include "flags.hh"
-#include "option_types.hh"
-#include "ranges.hh"
-#include "shared_string.hh"
-#include "unit_tests.hh"
-#include "utils.hh"
-#include "window.hh"
+#include <kakoune/assert.hh>
+#include <kakoune/buffer_manager.hh>
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/client.hh>
+#include <kakoune/context.hh>
+#include <kakoune/diff.hh>
+#include <kakoune/file.hh>
+#include <kakoune/flags.hh>
+#include <kakoune/option_types.hh>
+#include <kakoune/ranges.hh>
+#include <kakoune/shared_string.hh>
+#include <kakoune/unit_tests.hh>
+#include <kakoune/utils.hh>
+#include <kakoune/window.hh>
 
 #include <algorithm>
 

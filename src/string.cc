@@ -1,4 +1,4 @@
-#include "string.hh"
+#include <kakoune/string.hh>
 
 #include <cstdio>
 #include <cstring>

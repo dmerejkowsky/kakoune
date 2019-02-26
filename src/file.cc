@@ -1,14 +1,14 @@
-#include "file.hh"
+#include <kakoune/file.hh>
 
-#include "assert.hh"
-#include "buffer.hh"
-#include "exception.hh"
-#include "flags.hh"
-#include "option_types.hh"
-#include "ranked_match.hh"
-#include "regex.hh"
-#include "string.hh"
-#include "unicode.hh"
+#include <kakoune/assert.hh>
+#include <kakoune/buffer.hh>
+#include <kakoune/exception.hh>
+#include <kakoune/flags.hh>
+#include <kakoune/option_types.hh>
+#include <kakoune/ranked_match.hh>
+#include <kakoune/regex.hh>
+#include <kakoune/string.hh>
+#include <kakoune/unicode.hh>
 
 #include <cerrno>
 #include <cstdlib>

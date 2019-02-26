@@ -1,6 +1,6 @@
-#include "env_vars.hh"
+#include <kakoune/env_vars.hh>
 
-#include "string.hh"
+#include <kakoune/string.hh>
 
 extern char **environ;
 

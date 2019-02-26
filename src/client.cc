@@ -1,19 +1,19 @@
-#include "client.hh"
+#include <kakoune/client.hh>
 
-#include "face_registry.hh"
-#include "context.hh"
-#include "buffer_manager.hh"
-#include "buffer_utils.hh"
-#include "file.hh"
-#include "remote.hh"
-#include "option.hh"
-#include "option_types.hh"
-#include "client_manager.hh"
-#include "command_manager.hh"
-#include "event_manager.hh"
-#include "user_interface.hh"
-#include "window.hh"
-#include "hash_map.hh"
+#include <kakoune/face_registry.hh>
+#include <kakoune/context.hh>
+#include <kakoune/buffer_manager.hh>
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/file.hh>
+#include <kakoune/remote.hh>
+#include <kakoune/option.hh>
+#include <kakoune/option_types.hh>
+#include <kakoune/client_manager.hh>
+#include <kakoune/command_manager.hh>
+#include <kakoune/event_manager.hh>
+#include <kakoune/user_interface.hh>
+#include <kakoune/window.hh>
+#include <kakoune/hash_map.hh>
 
 #include <csignal>
 #include <unistd.h>

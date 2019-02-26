@@ -1,15 +1,15 @@
-#include "window.hh"
+#include <kakoune/window.hh>
 
-#include "assert.hh"
-#include "clock.hh"
-#include "context.hh"
-#include "highlighter.hh"
-#include "hook_manager.hh"
-#include "input_handler.hh"
-#include "client.hh"
-#include "buffer_utils.hh"
-#include "option.hh"
-#include "option_types.hh"
+#include <kakoune/assert.hh>
+#include <kakoune/clock.hh>
+#include <kakoune/context.hh>
+#include <kakoune/highlighter.hh>
+#include <kakoune/hook_manager.hh>
+#include <kakoune/input_handler.hh>
+#include <kakoune/client.hh>
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/option.hh>
+#include <kakoune/option_types.hh>
 
 #include <algorithm>
 #include <sstream>

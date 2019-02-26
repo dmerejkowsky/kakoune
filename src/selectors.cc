@@ -1,15 +1,15 @@
-#include "selectors.hh"
+#include <kakoune/selectors.hh>
 
-#include "buffer_utils.hh"
-#include "context.hh"
-#include "flags.hh"
-#include "optional.hh"
-#include "option_types.hh"
-#include "regex.hh"
-#include "string.hh"
-#include "unicode.hh"
-#include "unit_tests.hh"
-#include "utf8_iterator.hh"
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/context.hh>
+#include <kakoune/flags.hh>
+#include <kakoune/optional.hh>
+#include <kakoune/option_types.hh>
+#include <kakoune/regex.hh>
+#include <kakoune/string.hh>
+#include <kakoune/unicode.hh>
+#include <kakoune/unit_tests.hh>
+#include <kakoune/utf8_iterator.hh>
 
 #include <algorithm>
 

@@ -1,6 +1,6 @@
-#include "backtrace.hh"
+#include <kakoune/backtrace.hh>
 
-#include "string.hh"
+#include <kakoune/string.hh>
 
 #if defined(__GLIBC__) || defined(__APPLE__)
 # include <execinfo.h>

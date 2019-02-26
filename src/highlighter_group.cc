@@ -1,7 +1,7 @@
-#include "highlighter_group.hh"
+#include <kakoune/highlighter_group.hh>
 
-#include "ranges.hh"
-#include "string_utils.hh"
+#include <kakoune/ranges.hh>
+#include <kakoune/string_utils.hh>
 
 namespace Kakoune
 {

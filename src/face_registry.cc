@@ -1,8 +1,8 @@
-#include "face_registry.hh"
+#include <kakoune/face_registry.hh>
 
-#include "exception.hh"
-#include "ranges.hh"
-#include "string_utils.hh"
+#include <kakoune/exception.hh>
+#include <kakoune/ranges.hh>
+#include <kakoune/string_utils.hh>
 
 namespace Kakoune
 {

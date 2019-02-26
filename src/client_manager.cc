@@ -1,12 +1,12 @@
-#include "client_manager.hh"
+#include <kakoune/client_manager.hh>
 
-#include "buffer_manager.hh"
-#include "command_manager.hh"
-#include "event_manager.hh"
-#include "face_registry.hh"
-#include "file.hh"
-#include "ranges.hh"
-#include "window.hh"
+#include <kakoune/buffer_manager.hh>
+#include <kakoune/command_manager.hh>
+#include <kakoune/event_manager.hh>
+#include <kakoune/face_registry.hh>
+#include <kakoune/file.hh>
+#include <kakoune/ranges.hh>
+#include <kakoune/window.hh>
 
 namespace Kakoune
 {

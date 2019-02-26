@@ -1,7 +1,7 @@
-#include "line_modification.hh"
+#include <kakoune/line_modification.hh>
 
-#include "buffer.hh"
-#include "unit_tests.hh"
+#include <kakoune/buffer.hh>
+#include <kakoune/unit_tests.hh>
 
 namespace Kakoune
 {

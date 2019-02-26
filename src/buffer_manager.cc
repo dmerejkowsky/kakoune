@@ -1,12 +1,12 @@
-#include "buffer_manager.hh"
+#include <kakoune/buffer_manager.hh>
 
-#include "assert.hh"
-#include "buffer.hh"
-#include "client_manager.hh"
-#include "exception.hh"
-#include "file.hh"
-#include "ranges.hh"
-#include "string.hh"
+#include <kakoune/assert.hh>
+#include <kakoune/buffer.hh>
+#include <kakoune/client_manager.hh>
+#include <kakoune/exception.hh>
+#include <kakoune/file.hh>
+#include <kakoune/ranges.hh>
+#include <kakoune/string.hh>
 
 namespace Kakoune
 {

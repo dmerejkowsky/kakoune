@@ -1,8 +1,8 @@
-#include "register_manager.hh"
+#include <kakoune/register_manager.hh>
 
-#include "assert.hh"
-#include "hash_map.hh"
-#include "string_utils.hh"
+#include <kakoune/assert.hh>
+#include <kakoune/hash_map.hh>
+#include <kakoune/string_utils.hh>
 
 namespace Kakoune
 {

@@ -1,10 +1,10 @@
-#include "context.hh"
+#include <kakoune/context.hh>
 
-#include "alias_registry.hh"
-#include "client.hh"
-#include "face_registry.hh"
-#include "register_manager.hh"
-#include "window.hh"
+#include <kakoune/alias_registry.hh>
+#include <kakoune/client.hh>
+#include <kakoune/face_registry.hh>
+#include <kakoune/register_manager.hh>
+#include <kakoune/window.hh>
 
 namespace Kakoune
 {

@@ -1,6 +1,6 @@
-#include "exception.hh"
+#include <kakoune/exception.hh>
 
-#include "string.hh"
+#include <kakoune/string.hh>
 
 #include <typeinfo>
 

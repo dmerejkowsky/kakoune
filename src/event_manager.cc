@@ -1,7 +1,7 @@
-#include "event_manager.hh"
+#include <kakoune/event_manager.hh>
 
-#include "flags.hh"
-#include "ranges.hh"
+#include <kakoune/flags.hh>
+#include <kakoune/ranges.hh>
 
 #include <unistd.h>
 

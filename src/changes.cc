@@ -1,4 +1,4 @@
-#include "changes.hh"
+#include <kakoune/changes.hh>
 
 namespace Kakoune
 {

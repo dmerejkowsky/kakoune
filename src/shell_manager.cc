@@ -1,17 +1,17 @@
-#include "shell_manager.hh"
+#include <kakoune/shell_manager.hh>
 
-#include "buffer_utils.hh"
-#include "client.hh"
-#include "clock.hh"
-#include "context.hh"
-#include "display_buffer.hh"
-#include "event_manager.hh"
-#include "face_registry.hh"
-#include "file.hh"
-#include "flags.hh"
-#include "option.hh"
-#include "option_types.hh"
-#include "regex.hh"
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/client.hh>
+#include <kakoune/clock.hh>
+#include <kakoune/context.hh>
+#include <kakoune/display_buffer.hh>
+#include <kakoune/event_manager.hh>
+#include <kakoune/face_registry.hh>
+#include <kakoune/file.hh>
+#include <kakoune/flags.hh>
+#include <kakoune/option.hh>
+#include <kakoune/option_types.hh>
+#include <kakoune/regex.hh>
 
 #include <cstring>
 #include <sys/types.h>

@@ -1,17 +1,17 @@
-#include "command_manager.hh"
+#include <kakoune/command_manager.hh>
 
-#include "alias_registry.hh"
-#include "assert.hh"
-#include "buffer_utils.hh"
-#include "context.hh"
-#include "flags.hh"
-#include "optional.hh"
-#include "option_types.hh"
-#include "ranges.hh"
-#include "register_manager.hh"
-#include "shell_manager.hh"
-#include "utils.hh"
-#include "unit_tests.hh"
+#include <kakoune/alias_registry.hh>
+#include <kakoune/assert.hh>
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/context.hh>
+#include <kakoune/flags.hh>
+#include <kakoune/optional.hh>
+#include <kakoune/option_types.hh>
+#include <kakoune/ranges.hh>
+#include <kakoune/register_manager.hh>
+#include <kakoune/shell_manager.hh>
+#include <kakoune/utils.hh>
+#include <kakoune/unit_tests.hh>
 
 #include <algorithm>
 

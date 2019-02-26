@@ -1,6 +1,6 @@
-#include "parameters_parser.hh"
+#include <kakoune/parameters_parser.hh>
 
-#include "flags.hh"
+#include <kakoune/flags.hh>
 
 namespace Kakoune
 {

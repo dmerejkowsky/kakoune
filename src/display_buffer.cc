@@ -1,12 +1,12 @@
-#include "display_buffer.hh"
+#include <kakoune/display_buffer.hh>
 
-#include "assert.hh"
-#include "buffer.hh"
-#include "buffer_utils.hh"
-#include "face_registry.hh"
-#include "utf8.hh"
+#include <kakoune/assert.hh>
+#include <kakoune/buffer.hh>
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/face_registry.hh>
+#include <kakoune/utf8.hh>
 
-#include "face_registry.hh"
+#include <kakoune/face_registry.hh>
 
 namespace Kakoune
 {

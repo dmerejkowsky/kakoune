@@ -1,9 +1,9 @@
-#include "buffer_utils.hh"
+#include <kakoune/buffer_utils.hh>
 
-#include "buffer_manager.hh"
-#include "event_manager.hh"
-#include "file.hh"
-#include "selection.hh"
+#include <kakoune/buffer_manager.hh>
+#include <kakoune/event_manager.hh>
+#include <kakoune/file.hh>
+#include <kakoune/selection.hh>
 
 #include <unistd.h>
 

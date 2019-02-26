@@ -1,4 +1,4 @@
-#include "memory.hh"
+#include <kakoune/memory.hh>
 
 namespace Kakoune
 {

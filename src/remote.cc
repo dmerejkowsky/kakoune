@@ -1,15 +1,16 @@
-#include "remote.hh"
+#include <kakoune/remote.hh>
 
-#include "buffer_manager.hh"
-#include "buffer_utils.hh"
-#include "client_manager.hh"
-#include "command_manager.hh"
-#include "display_buffer.hh"
-#include "event_manager.hh"
-#include "file.hh"
-#include "hash_map.hh"
-#include "optional.hh"
-#include "user_interface.hh"
+#include <kakoune/buffer_manager.hh>
+#include <kakoune/buffer_utils.hh>
+#include <kakoune/client_manager.hh>
+#include <kakoune/command_manager.hh>
+#include <kakoune/display_buffer.hh>
+#include <kakoune/event_manager.hh>
+#include <kakoune/file.hh>
+#include <kakoune/hash_map.hh>
+#include <kakoune/optional.hh>
+#include <kakoune/remote.hh>
+#include <kakoune/user_interface.hh>
 
 #include <sys/types.h>
 #include <sys/socket.h>
