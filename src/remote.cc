@@ -225,7 +225,6 @@ void MsgReader::read_from_socket(int sock, size_t size)
     m_write_pos += res;
 }
 
-
 template<>
 String MsgReader::read<String>()
 {
@@ -322,7 +321,7 @@ private:
     RemoteBuffer  m_send_buffer;
 };
 
-static bool send_data(int fd, RemoteBuffer& buffer)
+bool send_data(int fd, RemoteBuffer& buffer)
 {
     while (not buffer.empty() and fd_writable(fd))
     {

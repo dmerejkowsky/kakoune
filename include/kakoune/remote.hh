@@ -85,6 +85,7 @@ private:
 };
 
 
+bool send_data(int fd, RemoteBuffer& buffer);
 
 class MsgReader
 {

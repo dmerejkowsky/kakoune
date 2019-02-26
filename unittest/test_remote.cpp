@@ -1,9 +1,15 @@
 #include <gtest/gtest.h>
+
+#include <cstring>
+#include <fcntl.h>
+#include <sys/socket.h>
+#include <sys/un.h>
 #include <unistd.h>
 
 #include <kakoune/display_buffer.hh>
 #include <kakoune/env_vars.hh>
 #include <kakoune/event_manager.hh>
+#include <kakoune/exception.hh>
 #include <kakoune/face.hh>
 #include <kakoune/remote.hh>
 #include <kakoune/string.hh>
@@ -48,4 +54,53 @@ TEST(Remote, DISABLED_CreateClientAndServer)  {
     const auto init_coords = Optional<BufferCoord>();
 
     RemoteClient client(session_name, client_name, std::move(ui), pid, env_vars, ""_sv, std::move(init_coords));
+}
+
+TEST(Remote, ReadAndWrite) {
+    try {
+        unlink("test.sock"); // make sure the test socket does not exist
+        int server_sock = socket(AF_UNIX, SOCK_STREAM, 0);
+        ASSERT_GT(server_sock, 0) <<  "could not create listen socket";
+        sockaddr_un saun;
+        saun.sun_family = AF_UNIX;
+        strcpy(saun.sun_path, "test.sock");
+
+        int len = sizeof(saun.sun_family) + ::strlen(saun.sun_path);
+        int bind_rc = bind(server_sock, (sockaddr *)&saun, len);
+        ASSERT_EQ(bind_rc, 0) << "could not bind server socket: " << strerror(errno);
+
+        int listen_rc = listen(server_sock, 5);
+        ASSERT_EQ(listen_rc, 0) << "could not listen to socket" << strerror(errno);
+
+        int client_sock = socket(AF_UNIX, SOCK_STREAM, 0);
+        ASSERT_GT(client_sock, 0) << "could not create client socket" << strerror(errno);
+
+        int connect_rc = connect(client_sock, (sockaddr*)&saun, len);
+        ASSERT_EQ(connect_rc, 0) << "could not connect to socket" << strerror(errno);
+
+        unsigned int fromlen;
+        sockaddr fsaun;
+        int accepted_sock = accept(server_sock, &fsaun, &fromlen);
+        ASSERT_GT(accepted_sock, 0) << "could not accept connection" << strerror(errno);
+
+        const auto red = str_to_color("red");
+        RemoteBuffer buffer;
+        MsgWriter writer(buffer, MessageType::Command);
+        writer.write(red);
+        bool send_ok = send_data(accepted_sock, buffer);
+        ASSERT_TRUE(send_ok);
+
+        MsgReader reader;
+        reader.read_available(client_sock);
+        const auto actual = reader.read<Color>();
+        EXPECT_EQ(actual, red);
+
+        close(accepted_sock);
+        close(client_sock);
+        close(server_sock);
+    } catch (Kakoune::exception &e) {
+       std::cerr << "caught: " << e.what().data() << std::endl;
+       FAIL();
+    }
+
 }
