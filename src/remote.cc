@@ -122,118 +122,109 @@ void MsgWriter::write(const DisplayBuffer& display_buffer)
 }
 
 
-class MsgReader
+void MsgReader::read_available(int sock)
 {
-public:
-    void read_available(int sock)
+    if (m_write_pos < header_size)
     {
-        if (m_write_pos < header_size)
+        m_stream.resize(header_size);
+        read_from_socket(sock, header_size - m_write_pos);
+        if (m_write_pos == header_size)
         {
-            m_stream.resize(header_size);
-            read_from_socket(sock, header_size - m_write_pos);
-            if (m_write_pos == header_size)
-            {
-                if (size() < header_size)
-                    throw disconnected{"invalid message received"};
-                m_stream.resize(size());
-            }
+            if (size() < header_size)
+                throw disconnected{"invalid message received"};
+            m_stream.resize(size());
         }
-        else
-            read_from_socket(sock, size() - m_write_pos);
     }
+    else
+        read_from_socket(sock, size() - m_write_pos);
+}
 
-    bool ready() const
+bool MsgReader::ready() const
+{
+    return m_write_pos >= header_size and m_write_pos == size();
+}
+
+uint32_t MsgReader::size() const
+{
+    kak_assert(m_write_pos >= header_size);
+    uint32_t res;
+    memcpy(&res, m_stream.data() + sizeof(MessageType), sizeof(uint32_t));
+    return res;
+}
+
+MessageType MsgReader::type() const
+{
+    kak_assert(m_write_pos >= header_size);
+    return *reinterpret_cast<const MessageType*>(m_stream.data());
+}
+
+void MsgReader::read(char* buffer, size_t size)
+{
+    if (m_read_pos + size > m_stream.size())
+        throw disconnected{"tried to read after message end"};
+    memcpy(buffer, m_stream.data() + m_read_pos, size);
+    m_read_pos += size;
+}
+
+template<typename T>
+T MsgReader::read()
+{
+    static_assert(std::is_trivially_copyable<T>::value, "");
+    T res;
+    read(reinterpret_cast<char*>(&res), sizeof(T));
+    return res;
+}
+
+template<typename T>
+Vector<T> MsgReader::read_vector()
+{
+    uint32_t size = read<uint32_t>();
+    Vector<T> res;
+    res.reserve(size);
+    while (size--)
+        res.push_back(read<T>());
+    return res;
+}
+
+template<typename Key, typename Val, MemoryDomain domain>
+HashMap<Key, Val, domain> MsgReader::read_hash_map()
+{
+    uint32_t size = read<uint32_t>();
+    HashMap<Key, Val, domain> res;
+    res.reserve(size);
+    while (size--)
     {
-        return m_write_pos >= header_size and m_write_pos == size();
+        auto key = read<Key>();
+        auto val = read<Val>();
+        res.insert({std::move(key), std::move(val)});
     }
+    return res;
+}
 
-    uint32_t size() const
-    {
-        kak_assert(m_write_pos >= header_size);
-        uint32_t res;
-        memcpy(&res, m_stream.data() + sizeof(MessageType), sizeof(uint32_t));
-        return res;
-    }
+template<typename T>
+Optional<T> MsgReader::read_optional()
+{
+    if (not read<bool>())
+        return {};
+    return read<T>();
+}
 
-    MessageType type() const
-    {
-        kak_assert(m_write_pos >= header_size);
-        return *reinterpret_cast<const MessageType*>(m_stream.data());
-    }
+void MsgReader::reset()
+{
+    m_stream.resize(0);
+    m_write_pos = 0;
+    m_read_pos = header_size;
+}
 
-    void read(char* buffer, size_t size)
-    {
-        if (m_read_pos + size > m_stream.size())
-            throw disconnected{"tried to read after message end"};
-        memcpy(buffer, m_stream.data() + m_read_pos, size);
-        m_read_pos += size;
-    }
+void MsgReader::read_from_socket(int sock, size_t size)
+{
+    kak_assert(m_write_pos + size <= m_stream.size());
+    int res = ::read(sock, m_stream.data() + m_write_pos, size);
+    if (res <= 0)
+        throw disconnected{format("socket read failed: {}", strerror(errno))};
+    m_write_pos += res;
+}
 
-    template<typename T>
-    T read()
-    {
-        static_assert(std::is_trivially_copyable<T>::value, "");
-        T res;
-        read(reinterpret_cast<char*>(&res), sizeof(T));
-        return res;
-    }
-
-    template<typename T>
-    Vector<T> read_vector()
-    {
-        uint32_t size = read<uint32_t>();
-        Vector<T> res;
-        res.reserve(size);
-        while (size--)
-            res.push_back(read<T>());
-        return res;
-    }
-
-    template<typename Key, typename Val, MemoryDomain domain>
-    HashMap<Key, Val, domain> read_hash_map()
-    {
-        uint32_t size = read<uint32_t>();
-        HashMap<Key, Val, domain> res;
-        res.reserve(size);
-        while (size--)
-        {
-            auto key = read<Key>();
-            auto val = read<Val>();
-            res.insert({std::move(key), std::move(val)});
-        }
-        return res;
-    }
-
-    template<typename T>
-    Optional<T> read_optional()
-    {
-        if (not read<bool>())
-            return {};
-        return read<T>();
-    }
-
-    void reset()
-    {
-        m_stream.resize(0);
-        m_write_pos = 0;
-        m_read_pos = header_size;
-    }
-
-private:
-    void read_from_socket(int sock, size_t size)
-    {
-        kak_assert(m_write_pos + size <= m_stream.size());
-        int res = ::read(sock, m_stream.data() + m_write_pos, size);
-        if (res <= 0)
-            throw disconnected{format("socket read failed: {}", strerror(errno))};
-        m_write_pos += res;
-    }
-
-    static constexpr uint32_t header_size = sizeof(MessageType) + sizeof(uint32_t);
-    Vector<char, MemoryDomain::Remote> m_stream;
-    uint32_t m_write_pos = 0;
-    uint32_t m_read_pos = header_size;
-};
 
 template<>
 String MsgReader::read<String>()

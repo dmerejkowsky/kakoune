@@ -85,6 +85,40 @@ private:
 };
 
 
+
+class MsgReader
+{
+public:
+    void read_available(int sock);
+    bool ready() const;
+    uint32_t size() const;
+    MessageType type() const;
+
+    void read(char* buffer, size_t size);
+
+    template<typename T>
+    T read();
+
+
+    template<typename T>
+    Vector<T> read_vector();
+    template<typename Key, typename Val, MemoryDomain domain>
+    HashMap<Key, Val, domain> read_hash_map();
+
+    template<typename T>
+    Optional<T> read_optional();
+
+    void reset();
+
+private:
+    void read_from_socket(int sock, size_t size);
+
+    static constexpr uint32_t header_size = sizeof(MessageType) + sizeof(uint32_t);
+    Vector<char, MemoryDomain::Remote> m_stream;
+    uint32_t m_write_pos = 0;
+    uint32_t m_read_pos = header_size;
+};
+
 // A remote client handle communication between a client running on the server
 // and a user interface running on the local process.
 class RemoteClient
