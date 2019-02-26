@@ -25,109 +25,102 @@
 namespace Kakoune
 {
 
-class MsgWriter
+MsgWriter::MsgWriter(RemoteBuffer& buffer, MessageType type)
+    : m_buffer{buffer}, m_start{(uint32_t)buffer.size()}
 {
-public:
-    MsgWriter(RemoteBuffer& buffer, MessageType type)
-        : m_buffer{buffer}, m_start{(uint32_t)buffer.size()}
-    {
-        write(type);
-        write((uint32_t)0); // message size, to be patched on write
-    }
+    write(type);
+    write((uint32_t)0); // message size, to be patched on write
+}
 
-    ~MsgWriter()
-    {
-        uint32_t count = (uint32_t)m_buffer.size() - m_start;
-        memcpy(m_buffer.data() + m_start + sizeof(MessageType), &count, sizeof(uint32_t));
-    }
+MsgWriter::~MsgWriter()
+{
+    uint32_t count = (uint32_t)m_buffer.size() - m_start;
+    memcpy(m_buffer.data() + m_start + sizeof(MessageType), &count, sizeof(uint32_t));
+}
 
-    void write(const char* val, size_t size)
-    {
-        m_buffer.insert(m_buffer.end(), val, val + size);
-    }
+void MsgWriter::write(const char* val, size_t size)
+{
+    m_buffer.insert(m_buffer.end(), val, val + size);
+}
 
-    template<typename T>
-    void write(const T& val)
-    {
-        static_assert(std::is_trivially_copyable<T>::value, "");
-        write((const char*)&val, sizeof(val));
-    }
+template<typename T>
+void MsgWriter::write(const T& val)
+{
+    static_assert(std::is_trivially_copyable<T>::value, "");
+    write((const char*)&val, sizeof(val));
+}
 
-    void write(StringView str)
-    {
-        write(str.length());
-        write(str.data(), (int)str.length());
-    };
-
-    void write(const String& str)
-    {
-        write(StringView{str});
-    }
-
-    template<typename T>
-    void write(ConstArrayView<T> view)
-    {
-        write<uint32_t>(view.size());
-        for (auto& val : view)
-            write(val);
-    }
-
-    template<typename T, MemoryDomain domain>
-    void write(const Vector<T, domain>& vec)
-    {
-        write(ConstArrayView<T>(vec));
-    }
-
-    template<typename Key, typename Val, MemoryDomain domain>
-    void write(const HashMap<Key, Val, domain>& map)
-    {
-        write<uint32_t>(map.size());
-        for (auto& val : map)
-        {
-            write(val.key);
-            write(val.value);
-        }
-    }
-
-    template<typename T>
-    void write(const Optional<T>& val)
-    {
-        write((bool)val);
-        if (val)
-            write(*val);
-    }
-
-    void write(Color color)
-    {
-        write(color.color);
-        if (color.color == Color::RGB)
-        {
-            write(color.r);
-            write(color.g);
-            write(color.b);
-        }
-    }
-
-    void write(const DisplayAtom& atom)
-    {
-        write(atom.content());
-        write(atom.face);
-    }
-
-    void write(const DisplayLine& line)
-    {
-        write(line.atoms());
-    }
-
-    void write(const DisplayBuffer& display_buffer)
-    {
-        write(display_buffer.lines());
-    }
-
-private:
-    RemoteBuffer& m_buffer;
-    uint32_t m_start;
+void MsgWriter::write(StringView str)
+{
+    write(str.length());
+    write(str.data(), (int)str.length());
 };
+
+void MsgWriter::write(const String& str)
+{
+    write(StringView{str});
+}
+
+template<typename T>
+void MsgWriter::write(ConstArrayView<T> view)
+{
+    write<uint32_t>(view.size());
+    for (auto& val : view)
+        write(val);
+}
+
+template<typename T, MemoryDomain domain>
+void MsgWriter::write(const Vector<T, domain>& vec)
+{
+    write(ConstArrayView<T>(vec));
+}
+
+template<typename Key, typename Val, MemoryDomain domain>
+void MsgWriter::write(const HashMap<Key, Val, domain>& map)
+{
+    write<uint32_t>(map.size());
+    for (auto& val : map)
+    {
+        write(val.key);
+        write(val.value);
+    }
+}
+
+template<typename T>
+void MsgWriter::write(const Optional<T>& val)
+{
+    write((bool)val);
+    if (val)
+        write(*val);
+}
+
+void MsgWriter::write(Color color)
+{
+    write(color.color);
+    if (color.color == Color::RGB)
+    {
+        write(color.r);
+        write(color.g);
+        write(color.b);
+    }
+}
+
+void MsgWriter::write(const DisplayAtom& atom)
+{
+    write(atom.content());
+    write(atom.face);
+}
+
+void MsgWriter::write(const DisplayLine& line)
+{
+    write(line.atoms());
+}
+
+void MsgWriter::write(const DisplayBuffer& display_buffer)
+{
+    write(display_buffer.lines());
+}
+
 
 class MsgReader
 {

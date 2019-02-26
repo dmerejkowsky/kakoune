@@ -1,11 +1,16 @@
 #ifndef remote_hh_INCLUDED
 #define remote_hh_INCLUDED
 
+#include "color.hh"
+#include "display_buffer.hh"
 #include "env_vars.hh"
 #include "exception.hh"
-#include "utils.hh"
-#include "vector.hh"
+#include "keys.hh"
+#include "memory.hh"
 #include "optional.hh"
+#include "utils.hh"
+#include "value.hh"
+#include "vector.hh"
 
 #include <memory>
 
@@ -44,6 +49,41 @@ enum class MessageType : uint8_t
     Exit,
     Key,
 };
+
+
+class MsgWriter
+{
+public:
+    MsgWriter(RemoteBuffer& buffer, MessageType type);
+
+    ~MsgWriter();
+
+    void write(const char* val, size_t size);
+
+    template<typename T>
+    void write(const T& val);
+    void write(StringView str);
+    void write(const String& str);
+
+    template<typename T>
+    void write(ConstArrayView<T> view);
+
+    template<typename T, MemoryDomain domain>
+    void write(const Vector<T, domain>& vec);
+    template<typename Key, typename Val, MemoryDomain domain>
+    void write(const HashMap<Key, Val, domain>& map);
+    template<typename T>
+    void write(const Optional<T>& val);
+    void write(Color color);
+    void write(const DisplayAtom& atom);
+    void write(const DisplayLine& line);
+    void write(const DisplayBuffer& display_buffer);
+
+private:
+    RemoteBuffer& m_buffer;
+    uint32_t m_start;
+};
+
 
 // A remote client handle communication between a client running on the server
 // and a user interface running on the local process.
