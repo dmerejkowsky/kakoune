@@ -24,6 +24,7 @@
 #include "regex.hh"
 #include "register_manager.hh"
 #include "remote.hh"
+#include "script.hh"
 #include "shell_manager.hh"
 #include "string.hh"
 #include "user_interface.hh"
@@ -2328,6 +2329,28 @@ const CommandDesc enter_user_mode_cmd = {
     }
 };
 
+const CommandDesc chai_eval_file = {
+  "chai-eval-file",
+  nullptr,
+  "chai-eval-file <path>: eval chai script command",
+  ParameterDesc{
+  },
+  CommandFlags::None,
+  CommandHelper{},
+  filename_completer,
+
+  [](const ParametersParser& parser, Context& context, const ShellContext&)
+  {
+        String script_path = fix_atom_text(join(parser, ' ', false));
+        Script script(context);
+        String error = script.eval_file(script_path);
+        if (!error.empty()) {
+          throw runtime_error(error);
+        }
+  }
+
+};
+
 }
 
 void register_commands()
@@ -2393,6 +2416,7 @@ void register_commands()
     register_command(fail_cmd);
     register_command(declare_user_mode_cmd);
     register_command(enter_user_mode_cmd);
+    register_command(chai_eval_file);
 }
 
 }

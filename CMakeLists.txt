@@ -129,6 +129,8 @@ add_library(kakoune
   src/remote.cc
   src/remote.hh
   src/safe_ptr.hh
+  src/script.cc
+  src/script.hh
   src/scope.cc
   src/scope.hh
   src/selection.cc
@@ -169,7 +171,7 @@ endif()
 
 target_compile_definitions(kakoune PUBLIC ${_kak_defs} )
 target_include_directories(kakoune PUBLIC ${CURSES_INCLUDE_DIRS})
-target_link_libraries(kakoune ${CURSES_LIBRARIES})
+target_link_libraries(kakoune ${CURSES_LIBRARIES} CONAN_PKG::chaiscript dl pthread)
 
 
 add_executable(kak

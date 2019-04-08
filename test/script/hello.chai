@@ -1,0 +1,2 @@
+kak.debug("this is a debug message")
+kak.echo("writing to echo line from chai")

@@ -1,2 +1,5 @@
+[requires]
+chaiscript/6.1.0@dmerej/testing
+
 [generators]
 cmake
