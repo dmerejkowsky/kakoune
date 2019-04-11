@@ -11,7 +11,7 @@ if(APPLE)
  set(CURSES_LIBRARIES "/usr/local/opt/ncurses/lib/libncurses.dylib")
 else()
   set(CURSES_NEED_NCURSES TRUE)
-  set(CURSES_NEED_WIDE TRUE)
+#  set(CURSES_NEED_WIDE TRUE)
   find_package(Curses REQUIRED)
 endif()
 

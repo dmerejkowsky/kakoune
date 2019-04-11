@@ -15,7 +15,6 @@ namespace Kakoune
 struct Script {
   public:
     explicit Script(Context& context);
-    String eval(String code);
     String eval_file(String file_path);
   private:
     Context& m_context;
