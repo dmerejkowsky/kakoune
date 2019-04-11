@@ -4,10 +4,16 @@ project(kakoune)
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
-set(CURSES_NEED_NCURSES TRUE)
-set(CURSES_NEED_WIDE TRUE)
-find_package(Curses REQUIRED)
-
+if(APPLE)
+ # We only support ncurses built by brew, so no need to look
+ # for the curses library, we know wher it is
+ set(CURSES_INCLUDE_DIRS "/usr/local/opt/ncurses/include")
+ set(CURSES_LIBRARIES "/usr/local/opt/ncurses/lib/libncurses.dylib")
+else()
+  set(CURSES_NEED_NCURSES TRUE)
+  set(CURSES_NEED_WIDE TRUE)
+  find_package(Curses REQUIRED)
+endif()
 
 enable_testing()
 
