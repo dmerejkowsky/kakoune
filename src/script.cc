@@ -18,6 +18,7 @@
 #include "option_manager.hh"
 #include "option_types.hh"
 #include "scope.hh"
+#include "shell_manager"
 #include "string.hh"
 #include "user_interface.hh"
 #include "unit_tests.hh"
@@ -129,6 +130,10 @@ struct Kak {
         return chaiscript::Boxed_Value(std::string{res.data()});
     }
     throw std::runtime_error("Unknown type: " + type);
+  }
+
+  std::string get_val(const std::string name) {
+        return {ShellManager::instance().get_val(name, m_context, Quoting::Kakoune)};
   }
 
 
