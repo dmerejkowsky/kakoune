@@ -42,21 +42,19 @@ def run_tests(kak_path, matching):
           write
           quit!
         }
-        write-quit
+        quit
     """)
     all_ok = True
     for test_file in sorted(Path(".").files("*.test.chai")):
         if matching and matching not in test_file:
             continue
         ui.info_1(test_file)
-        out_path = Path("out")
-        out_path.write_text("")
         err_path = Path("err")
         err_path.write_text("")
 
         cmd_for_test = kak_cmd.replace("@test_file@", test_file)
         process = subprocess.Popen(
-            [kak_path, "-e", cmd_for_test, "-n", "-ui", "json", out_path],
+            [kak_path, "-e", cmd_for_test, "-n", "-ui", "json"],
             stdout=subprocess.PIPE,
             text=True
         )

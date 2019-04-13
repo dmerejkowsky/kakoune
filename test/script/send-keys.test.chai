@@ -1,5 +1,5 @@
 use("lib.chai")
 
-kak.send_keys(["i", "this is from the test", "<esc>", ":write", "<ret>"])
+kak.send_keys(["i", "this is from the test", "<esc>"])
 var actual = kak.buffer().read()
 assert_eq(actual, "this is from the test")
