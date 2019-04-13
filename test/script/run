@@ -42,6 +42,7 @@ def run_tests(kak_path):
         }
         write-quit
     """)
+    all_ok = True
     for test_file in sorted(Path(".").files("*.test.chai")):
         ui.info_1(test_file)
         out_path = Path("out")
@@ -71,11 +72,17 @@ def run_tests(kak_path):
 
         error = err_path.text()
         if error:
-             ui.error(error)
+             ui.error(error.strip())
+             all_ok = False
              continue
+
         actual = out_path.text()
         if actual != expected:
             ui.error(f"{repr(actual)} != {repr(expected)}")
+            all_ok = False
+
+    if not all_ok:
+        sys.exit(2)
 
 
 if __name__ == "__main__":
