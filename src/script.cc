@@ -178,6 +178,8 @@ Script::Script(Context& context):
    m_chai->add(chaiscript::fun<void, Kak, const std::string&, const std::string&, const chaiscript::Boxed_Value& >(&Kak::set_option), "set_option");
    m_chai->add(chaiscript::fun<void, Kak, const std::string&, const std::string&, const std::vector<chaiscript::Boxed_Value>&>(&Kak::set_option), "set_option");
 
+   m_chai->add(chaiscript::fun(&Kak::send_keys), "send_keys");
+
 }
 
 

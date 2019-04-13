@@ -1,7 +1,11 @@
 #!/bin/env python3
+
+import argparse
 import subprocess
+import textwrap
 import json
 
+import cli_ui as ui
 from path import Path
 
 
@@ -11,19 +15,39 @@ def print_line(line):
 
 
 def main():
-    kak_path = Path("../../build/bin/kak")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-b", "--build-path",  required=True, type=Path)
+    args = parser.parse_args()
+    build_path = args.build_path
+    kak_path = build_path  / "bin/kak"
+
+    build(build_path)
+    run_tests(kak_path)
+
+
+def build(build_path):
+    subprocess.run(["ninja"], cwd=build_path, check=True)
+
+
+def run_tests(kak_path):
+    kak_cmd = textwrap.dedent("""\
+        try %{
+          chai-eval-file @test_file@
+        } catch %{
+          execute-keys -draft "<esc> i %val{error} <esc>"
+        }
+        write
+        quit
+    """)
     for test_file in Path(".").files("*.test.chai"):
-        kak_cmd = f"""\
-       	source start.kak
-       	set-option buffer test_file {test_file}
-       	source run.kak
-       	quit
-       	"""
         out = Path("out")
         out.remove_p()
-        print(test_file)
+        ui.info_1(test_file)
+        expected_path  = Path(test_file.name.split(".")[0] + ".out")
+        expected = expected_path.text()
+        cmd_for_test = kak_cmd.replace("@test_file@", test_file)
         process = subprocess.Popen(
-            [kak_path, "-e", kak_cmd, "-n", "-ui", "json", out],
+            [kak_path, "-e", cmd_for_test, "-n", "-ui", "json", out],
             stdout=subprocess.PIPE
         )
         for line in process.stdout:
@@ -33,12 +57,16 @@ def main():
             if method == "draw_status":
                 status_line, mode_line, default_face = params
                 print_line(status_line)
-            elif method  in ["draw", "refresh", "set_cursor"]:
+            elif method  in ["draw", "refresh", "set_cursor", "set_ui_options"]:
                 pass
             else:
-                print(method, *params)
+                ui.info(ui.tabs(1), method, *params)
 
-        print(out.text())
+        actual = out.text()
+        if actual != expected:
+            ui.error(f"{repr(actual)} != {repr(expected)}")
+        else:
+            ui.info(ui.check)
 
 
 if __name__ == "__main__":
