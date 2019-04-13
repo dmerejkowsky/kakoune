@@ -1,14 +1,44 @@
 #!/bin/env python3
 import subprocess
+import json
 
 from path import Path
 
 
+def print_line(line):
+    for atom in line:
+        print(atom["contents"])
+
+
 def main():
     kak_path = Path("../../build/bin/kak")
-    for test in Path(".").files("*.chai"):
-        print(test)
-        subprocess.run([kak_path, "-e", f"chai-eval-file {kak_path}", "-ui", "json"], check=True)
+    for test_file in Path(".").files("*.test.chai"):
+        kak_cmd = f"""\
+       	source start.kak
+       	set-option buffer test_file {test_file}
+       	source run.kak
+       	quit
+       	"""
+        out = Path("out")
+        out.remove_p()
+        print(test_file)
+        process = subprocess.Popen(
+            [kak_path, "-e", kak_cmd, "-n", "-ui", "json", out],
+            stdout=subprocess.PIPE
+        )
+        for line in process.stdout:
+            rpc = json.loads(line)
+            method = rpc["method"]
+            params = rpc["params"]
+            if method == "draw_status":
+                status_line, mode_line, default_face = params
+                print_line(status_line)
+            elif method  in ["draw", "refresh", "set_cursor"]:
+                pass
+            else:
+                print(method, *params)
+
+        print(out.text())
 
 
 if __name__ == "__main__":
