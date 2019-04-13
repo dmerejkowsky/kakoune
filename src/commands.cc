@@ -2350,7 +2350,7 @@ const CommandDesc chai_eval_file = {
 
   [](const ParametersParser& parser, Context& context, const ShellContext&)
   {
-        String script_path = fix_atom_text(join(parser, ' ', false));
+        String script_path = parser[0];
         Script script(context);
         script.eval_file(script_path);
   }
