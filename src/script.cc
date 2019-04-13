@@ -167,39 +167,33 @@ Script::Script(Context& context):
 
 
 
-String Script::eval_file(String file_path) {
+void Script::eval_file(String file_path) {
   const char* ptr = file_path.data();
   try {
     m_chai->eval_file(ptr, chaiscript::exception_specification<const std::string&>());
   } catch (const chaiscript::exception::eval_error &e) {  // error while parsing/running script
-    return String(e.what());
-  } catch (const std::exception &e) {  // exception throw in C++
-    return String(e.what());
+    throw runtime_error(e.what());
+  } catch (const std::exception &e) {  // exception thrown in C++ code above
+    throw runtime_error(e.what());
   }
-  catch (const std::string &message) { // exception throw from chaiscript
-    return String{message.c_str()};
+  catch (const std::string &message) { // exception thrown from chaiscript
+    throw runtime_error(message.c_str());
   }
-  return String("");
 }
 
-/*
-UnitTest test_script{[]()
-{
-  String error;
-  Script script;
-  error =  script.eval(R"(
-    import("kakoune")
-    puts(kakoune.version)
-  )"
-  );
-  kak_assert(error.empty());
+void Script::eval_code(String code) {
+  // FIXME: dedup this
+  try {
+    m_chai->eval(code.data(), chaiscript::exception_specification<const std::string&>());
+  } catch (const chaiscript::exception::eval_error &e) {  // error while parsing/running script
+    throw runtime_error(e.what());
+  } catch (const std::exception &e) {  // exception throw in C++
+    throw runtime_error(e.what());
+  }
+  catch (const std::string &message) { // exception throw from chaiscript
+    throw runtime_error(message.c_str());
+  }
+}
 
-  error = script.eval(R"(
-    puts(no-such-obj)
-  )"
-  );
-  kak_assert(!error.empty());
-}};
-*/
 
 } // namespace Kakoune

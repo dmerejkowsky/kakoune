@@ -2343,15 +2343,31 @@ const CommandDesc chai_eval_file = {
   {
         String script_path = fix_atom_text(join(parser, ' ', false));
         Script script(context);
-        String error = script.eval_file(script_path);
-        if (!error.empty()) {
-          throw runtime_error(error);
-        }
+        script.eval_file(script_path);
   }
 
 };
 
-}
+
+const CommandDesc chai_eval_code = {
+  "chai-eval-code",
+  nullptr,
+  "chai-eval-code <code>: eval chai script code",
+  ParameterDesc{
+  },
+  CommandFlags::None,
+  CommandHelper{},
+  CommandCompleter{},
+  [](const ParametersParser& parser, Context& context, const ShellContext&)
+  {
+        String code = parser[0];
+        Script script(context);
+        script.eval_code(code);
+  }
+
+};
+
+} // anonymous namespace
 
 void register_commands()
 {
@@ -2417,6 +2433,7 @@ void register_commands()
     register_command(declare_user_mode_cmd);
     register_command(enter_user_mode_cmd);
     register_command(chai_eval_file);
+    register_command(chai_eval_code);
 }
 
 }
