@@ -18,19 +18,21 @@ def print_line(line):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--build-path",  required=True, type=Path)
+    parser.add_argument("-m", "--matching")
     args = parser.parse_args()
+    matching = args.matching
     build_path = args.build_path
     kak_path = build_path  / "bin/kak"
 
     build(build_path)
-    run_tests(kak_path)
+    run_tests(kak_path, matching)
 
 
 def build(build_path):
     subprocess.run(["ninja"], cwd=build_path, check=True)
 
 
-def run_tests(kak_path):
+def run_tests(kak_path, matching):
     kak_cmd = textwrap.dedent("""\
         try %{
           chai-eval-file @test_file@
@@ -44,14 +46,14 @@ def run_tests(kak_path):
     """)
     all_ok = True
     for test_file in sorted(Path(".").files("*.test.chai")):
+        if matching and matching not in test_file:
+            continue
         ui.info_1(test_file)
         out_path = Path("out")
         out_path.write_text("")
         err_path = Path("err")
         err_path.write_text("")
 
-        expected_path  = Path(test_file.name.split(".")[0] + ".out")
-        expected = expected_path.text()
         cmd_for_test = kak_cmd.replace("@test_file@", test_file)
         process = subprocess.Popen(
             [kak_path, "-e", cmd_for_test, "-n", "-ui", "json", out_path],
@@ -75,11 +77,6 @@ def run_tests(kak_path):
              ui.error(error.strip())
              all_ok = False
              continue
-
-        actual = out_path.text()
-        if actual != expected:
-            ui.error(f"{repr(actual)} != {repr(expected)}")
-            all_ok = False
 
     if not all_ok:
         sys.exit(2)

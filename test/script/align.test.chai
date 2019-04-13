@@ -1,0 +1,16 @@
+use("lib.chai")
+
+kak.buffer.write("
+a - a
+bb - b
+ccc - c
+")
+
+kak.send_keys(["%", "s-<ret>", "&"])
+var actual = kak.buffer.read()
+assert_eq(actual, "
+a   - a
+bb  - b
+ccc - c
+
+")

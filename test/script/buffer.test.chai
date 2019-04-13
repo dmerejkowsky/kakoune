@@ -4,4 +4,5 @@ var buffer = kak.buffer()
 
 buffer.write("written from chai")
 var actual_contents = buffer.read()
+// Note: write() adds a trailing \n
 assert_eq(actual_contents, "written from chai\n")
