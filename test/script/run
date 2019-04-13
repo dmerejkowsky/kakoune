@@ -35,10 +35,12 @@ def run_tests(kak_path):
         try %{
           chai-eval-file @test_file@
         } catch %{
+          edit err
           execute-keys -draft "<esc> i %val{error} <esc>"
-          write err
+          write
+          quit!
         }
-        write-all-quit
+        write
     """)
     for test_file in sorted(Path(".").files("*.test.chai")):
         ui.info_1(test_file)
@@ -70,6 +72,7 @@ def run_tests(kak_path):
         error = err_path.text()
         if error:
              ui.error(error)
+             continue
         actual = out_path.text()
         if actual != expected:
             ui.error(f"{repr(actual)} != {repr(expected)}")
