@@ -4,6 +4,7 @@ import argparse
 import subprocess
 import textwrap
 import json
+import sys
 
 import cli_ui as ui
 from path import Path
@@ -35,20 +36,24 @@ def run_tests(kak_path):
           chai-eval-file @test_file@
         } catch %{
           execute-keys -draft "<esc> i %val{error} <esc>"
+          write err
         }
-        write
-        quit
+        write-all-quit
     """)
     for test_file in Path(".").files("*.test.chai"):
-        out = Path("out")
-        out.remove_p()
         ui.info_1(test_file)
+        out_path = Path("out")
+        out_path.write_text("")
+        err_path = Path("err")
+        err_path.write_text("")
+
         expected_path  = Path(test_file.name.split(".")[0] + ".out")
         expected = expected_path.text()
         cmd_for_test = kak_cmd.replace("@test_file@", test_file)
         process = subprocess.Popen(
-            [kak_path, "-e", cmd_for_test, "-n", "-ui", "json", out],
-            stdout=subprocess.PIPE
+            [kak_path, "-e", cmd_for_test, "-n", "-ui", "json", out_path],
+            stdout=subprocess.PIPE,
+            text=True
         )
         for line in process.stdout:
             rpc = json.loads(line)
@@ -62,11 +67,12 @@ def run_tests(kak_path):
             else:
                 ui.info(ui.tabs(1), method, *params)
 
-        actual = out.text()
+        error = err_path.text()
+        if error:
+             ui.error(error)
+        actual = out_path.text()
         if actual != expected:
             ui.error(f"{repr(actual)} != {repr(expected)}")
-        else:
-            ui.info(ui.check)
 
 
 if __name__ == "__main__":

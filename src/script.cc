@@ -31,7 +31,10 @@ using namespace chaiscript;
 namespace Kakoune
 {
 
-// TODO: namespace this
+namespace Chai
+{
+
+// TODO: dedup this
 Scope* get_scope_ifp(StringView scope, const Context& context)
 {
     if (prefix_match("global", scope))
@@ -58,6 +61,30 @@ static OptionManager& get_options(StringView scope, const Context& context, Stri
         return context.options()[option_name].manager();
     return get_scope(scope, context).options();
 }
+
+struct ChaiBuffer {
+    public:
+    explicit ChaiBuffer(Buffer& buffer):
+      m_buffer(buffer)
+      {}
+
+    const std::string read()
+    {
+        BufferCoord start { 0, 0 };
+        auto end = m_buffer.end_coord();
+        String contents = m_buffer.string(start, end);
+        return std::string{contents.data()};
+    }
+
+    void write(const std::string& contents)
+    {
+        BufferCoord start { 0, 0 };
+        m_buffer.insert(start, String{contents.c_str()});
+    }
+
+    private:
+        Buffer& m_buffer;
+};
 
 
 struct Kak {
@@ -149,11 +176,17 @@ struct Kak {
             m_context.input_handler().handle_key(key);
   }
 
+  ChaiBuffer buffer() {
+      Kakoune::Buffer& kak_buffer = m_context.buffer();
+      return ChaiBuffer(kak_buffer);
+  }
 
   private:
     Context& m_context;
 
 };
+
+} // namespace Chai
 
 Script::Script(Context& context):
   m_chai(new chaiscript::ChaiScript()),
@@ -162,23 +195,23 @@ Script::Script(Context& context):
 
   m_chai->add(chaiscript::bootstrap::standard_library::vector_type<std::vector<std::string>>("VectorString"));
 
-  Kak kak(m_context);
-  auto debug = [&kak](const std::string& message) {
-    kak.debug(message);
-  };
+  Chai::Kak kak(m_context);
 
-
-   m_chai->add(chaiscript::user_type<Kak>(), "Kak");
+   m_chai->add(chaiscript::user_type<Chai::Kak>(), "Kak");
    m_chai->add(chaiscript::var(kak), "kak");
-   m_chai->add(chaiscript::fun(&Kak::debug), "debug");
-   m_chai->add(chaiscript::fun(&Kak::echo), "echo");
+   m_chai->add(chaiscript::fun(&Chai::Kak::debug), "debug");
+   m_chai->add(chaiscript::fun(&Chai::Kak::echo), "echo");
 
-   m_chai->add(chaiscript::fun(&Kak::get_option), "get_option");
+   m_chai->add(chaiscript::fun(&Chai::Kak::get_option), "get_option");
 
-   m_chai->add(chaiscript::fun<void, Kak, const std::string&, const std::string&, const chaiscript::Boxed_Value& >(&Kak::set_option), "set_option");
-   m_chai->add(chaiscript::fun<void, Kak, const std::string&, const std::string&, const std::vector<chaiscript::Boxed_Value>&>(&Kak::set_option), "set_option");
+   m_chai->add(chaiscript::fun<void, Chai::Kak, const std::string&, const std::string&, const chaiscript::Boxed_Value& >(&Chai::Kak::set_option), "set_option");
+   m_chai->add(chaiscript::fun<void, Chai::Kak, const std::string&, const std::string&, const std::vector<chaiscript::Boxed_Value>&>(&Chai::Kak::set_option), "set_option");
 
-   m_chai->add(chaiscript::fun(&Kak::send_keys), "send_keys");
+   m_chai->add(chaiscript::fun(&Chai::Kak::send_keys), "send_keys");
+
+   m_chai->add(chaiscript::fun(&Chai::Kak::buffer), "buffer");
+   m_chai->add(chaiscript::fun(&Chai::ChaiBuffer::read), "read");
+   m_chai->add(chaiscript::fun(&Chai::ChaiBuffer::write), "write");
 
 }
 

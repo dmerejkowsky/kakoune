@@ -1,0 +1,7 @@
+use("lib.chai")
+
+var buffer = kak.buffer()
+
+buffer.write("written from chai")
+var actual_contents = buffer.read()
+assert_eq(actual_contents, "written from chai\n")
