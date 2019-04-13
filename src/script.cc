@@ -12,6 +12,7 @@
 #include "display_buffer.hh"
 #include "client.hh"
 #include "face_registry.hh"
+#include "keys.hh"
 #include "option.hh"
 #include "option_manager.hh"
 #include "option_types.hh"
@@ -132,6 +133,20 @@ struct Kak {
 
     params.push_back(String{as_string.c_str()});
     option.set_from_strings(params);
+  }
+
+
+  void send_keys(const std::vector<chaiscript::Boxed_Value> bvs) {
+        KeyList keys;
+        for (auto& bv : bvs)
+        {
+            auto value = chaiscript::boxed_cast<std::string>(bv);
+            KeyList param_keys = parse_keys(String{value.c_str()});
+            keys.insert(keys.end(), param_keys.begin(), param_keys.end());
+        }
+
+        for (auto& key : keys)
+            m_context.input_handler().handle_key(key);
   }
 
 

@@ -1,0 +1,15 @@
+#!/bin/env python3
+import subprocess
+
+from path import Path
+
+
+def main():
+    kak_path = Path("../../build/bin/kak")
+    for test in Path(".").files("*.chai"):
+        print(test)
+        subprocess.run([kak_path, "-e", f"chai-eval-file {kak_path}", "-ui", "json"], check=True)
+
+
+if __name__ == "__main__":
+    main()
