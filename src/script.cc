@@ -182,7 +182,7 @@ struct Kak {
       return ChaiBuffer(kak_buffer);
   }
 
-  void execute(const std::string& command_line) {
+  void execute_cmd(const std::string& command_line) {
       CommandManager::instance().execute(String{command_line.c_str()}, m_context);
   }
 
@@ -213,7 +213,7 @@ Script::Script(Context& context):
    m_chai->add(chaiscript::fun<void, Chai::Kak, const std::string&, const std::string&, const std::vector<chaiscript::Boxed_Value>&>(&Chai::Kak::set_option), "set_option");
 
    m_chai->add(chaiscript::fun(&Chai::Kak::send_keys), "send_keys");
-   m_chai->add(chaiscript::fun(&Chai::Kak::execute), "execute");
+   m_chai->add(chaiscript::fun(&Chai::Kak::execute_cmd), "command");
 
    m_chai->add(chaiscript::fun(&Chai::Kak::buffer), "buffer");
    m_chai->add(chaiscript::fun(&Chai::ChaiBuffer::read), "read");
