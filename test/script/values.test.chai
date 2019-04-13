@@ -1,0 +1,8 @@
+use("lib.chai")
+var bufname = kak.val("bufname")
+assert_eq(bufname, "*scratch*")
+
+kak.command("edit other")
+var other_bufname = kak.val("bufname")
+assert_eq(other_bufname, "other")
+

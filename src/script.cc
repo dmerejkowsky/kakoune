@@ -18,7 +18,7 @@
 #include "option_manager.hh"
 #include "option_types.hh"
 #include "scope.hh"
-#include "shell_manager"
+#include "shell_manager.hh"
 #include "string.hh"
 #include "user_interface.hh"
 #include "unit_tests.hh"
@@ -132,8 +132,10 @@ struct Kak {
     throw std::runtime_error("Unknown type: " + type);
   }
 
-  std::string get_val(const std::string name) {
-        return {ShellManager::instance().get_val(name, m_context, Quoting::Kakoune)};
+  std::string val(const std::string name) {
+        String res = {ShellManager::instance().get_val(String{name.c_str()}, m_context, Quoting::Kakoune)};
+        // TODO: unquote ?
+        return std::string{res.data()};
   }
 
 
@@ -218,6 +220,7 @@ Script::Script(Context& context):
    m_chai->add(chaiscript::fun(&Chai::Kak::echo), "echo");
 
    m_chai->add(chaiscript::fun(&Chai::Kak::get_option), "get_option");
+   m_chai->add(chaiscript::fun(&Chai::Kak::val), "val");
 
    m_chai->add(chaiscript::fun<void, Chai::Kak, const std::string&, const std::string&, const chaiscript::Boxed_Value& >(&Chai::Kak::set_option), "set_option");
    m_chai->add(chaiscript::fun<void, Chai::Kak, const std::string&, const std::string&, const std::vector<chaiscript::Boxed_Value>&>(&Chai::Kak::set_option), "set_option");
