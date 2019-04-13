@@ -1,0 +1,4 @@
+use("lib.chai")
+
+kak.execute("set-option buffer tabstop 5")
+assert_eq(kak.get_option("int", "tabstop"), 5)

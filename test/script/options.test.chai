@@ -1,0 +1,12 @@
+use("lib.chai")
+
+kak.set_option("buffer", "tabstop", 5)
+assert_eq(kak.get_option("int", "tabstop"), 5)
+
+var readonly = kak.get_option("bool", "readonly")
+assert_eq(readonly, false)
+
+kak.set_option("global", "ui_options", ["ncurses_assistant=dilbert"])
+
+// TODO get_option("str-to-str-map")
+

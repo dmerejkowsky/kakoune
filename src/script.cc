@@ -7,6 +7,7 @@
 #include "assert.hh"
 #include "buffer_manager.hh"
 #include "buffer_utils.hh"
+#include "command_manager.hh"
 #include "context.hh"
 #include "coord.hh"
 #include "display_buffer.hh"
@@ -181,6 +182,10 @@ struct Kak {
       return ChaiBuffer(kak_buffer);
   }
 
+  void execute(const std::string& command_line) {
+      CommandManager::instance().execute(String{command_line.c_str()}, m_context);
+  }
+
   private:
     Context& m_context;
 
@@ -208,6 +213,7 @@ Script::Script(Context& context):
    m_chai->add(chaiscript::fun<void, Chai::Kak, const std::string&, const std::string&, const std::vector<chaiscript::Boxed_Value>&>(&Chai::Kak::set_option), "set_option");
 
    m_chai->add(chaiscript::fun(&Chai::Kak::send_keys), "send_keys");
+   m_chai->add(chaiscript::fun(&Chai::Kak::execute), "execute");
 
    m_chai->add(chaiscript::fun(&Chai::Kak::buffer), "buffer");
    m_chai->add(chaiscript::fun(&Chai::ChaiBuffer::read), "read");
