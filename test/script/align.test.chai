@@ -12,5 +12,4 @@ assert_eq(actual, "
 a   - a
 bb  - b
 ccc - c
-
 ")

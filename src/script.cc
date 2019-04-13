@@ -74,7 +74,12 @@ struct ChaiBuffer {
         BufferCoord start { 0, 0 };
         auto end = m_buffer.end_coord();
         String contents = m_buffer.string(start, end);
-        return std::string{contents.data()};
+        auto const data = contents.data();
+        auto res = std::string{contents.data()};
+        if (res != "") {
+            res.pop_back();
+        }
+        return res;
     }
 
     void write(const std::string& contents)
