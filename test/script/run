@@ -34,15 +34,8 @@ def build(build_path):
 
 def run_tests(kak_path, matching):
     kak_cmd = textwrap.dedent("""\
-        try %{
-          chai-eval-file @test_file@
-        } catch %{
-          edit err
-          execute-keys -draft "<esc> i %val{error} <esc>"
-          write
-          quit!
-        }
-        quit
+        declare-option str test_file_name @test_file@
+        chai-eval-file run.chai
     """)
     all_ok = True
     for test_file in sorted(Path(".").files("*.test.chai")):

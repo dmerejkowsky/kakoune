@@ -1,6 +1,0 @@
-test/script/run:
-  if chai-eval-file throws an exception containing `\n` they will
-  get lost when running execute-keys in the `err` buffer
-
-TODO: find a better way to report errors
-  cat $kak_error > /tmp/error does not seem to work

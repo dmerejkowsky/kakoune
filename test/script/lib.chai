@@ -1,5 +1,5 @@
 def assert_eq(actual, expected) {
     if (actual != expected) {
-        throw("${actual} != ${expected}")
+        throw("`${actual}` != `${expected}`")
     }
 }
