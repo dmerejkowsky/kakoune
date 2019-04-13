@@ -40,7 +40,7 @@ def run_tests(kak_path):
           write
           quit!
         }
-        write
+        write-quit
     """)
     for test_file in sorted(Path(".").files("*.test.chai")):
         ui.info_1(test_file)
