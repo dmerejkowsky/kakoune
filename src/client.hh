@@ -44,6 +44,7 @@ public:
     void menu_show(Vector<DisplayLine> choices, BufferCoord anchor, MenuStyle style);
     void menu_select(int selected);
     void menu_hide();
+    void show_error(StringView message, Face face);
 
     void info_show(String title, String content, BufferCoord anchor, InfoStyle style);
     void info_hide(bool even_modal = false);

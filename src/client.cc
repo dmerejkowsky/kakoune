@@ -77,6 +77,10 @@ bool Client::is_ui_ok() const
     return m_ui->is_ok();
 }
 
+void Client::show_error(StringView message, Face face) {
+    m_ui->show_error(message, face);
+}
+
 bool Client::process_pending_inputs()
 {
     const bool debug_keys = (bool)(context().options()["debug"].get<DebugFlags>() & DebugFlags::Keys);

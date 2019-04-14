@@ -1147,6 +1147,12 @@ void NCursesUI::info_show(StringView title, StringView content,
     m_dirty = true;
 }
 
+
+void NCursesUI::show_error(StringView message, Face face)
+{
+  info_show("error", message, {}, face, InfoStyle::Modal);
+}
+
 void NCursesUI::info_hide()
 {
     if (not m_info)

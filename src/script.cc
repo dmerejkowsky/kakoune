@@ -115,6 +115,14 @@ struct Kak {
     // TODO: dedup code from commands.cc (info_cmd)
   }
 
+  void error(const std::string& message) {
+    if (not m_context.has_client())
+        return;
+
+    const auto error_face = m_context.faces()["Error"];
+    m_context.client().show_error(String{message.c_str()}, error_face);
+  }
+
   chaiscript::Boxed_Value get_option(const std::string& type, const std::string& name) {
     // TODO: all types
     if (type == "bool") {
@@ -218,6 +226,7 @@ Script::Script(Context& context):
    m_chai->add(chaiscript::var(kak), "kak");
    m_chai->add(chaiscript::fun(&Chai::Kak::debug), "debug");
    m_chai->add(chaiscript::fun(&Chai::Kak::echo), "echo");
+   m_chai->add(chaiscript::fun(&Chai::Kak::error), "error");
 
    m_chai->add(chaiscript::fun(&Chai::Kak::get_option), "get_option");
    m_chai->add(chaiscript::fun(&Chai::Kak::val), "val");

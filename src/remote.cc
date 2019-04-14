@@ -326,6 +326,7 @@ public:
                    DisplayCoord anchor, Face face,
                    InfoStyle style) override;
     void info_hide() override;
+    void show_error(StringView message, Face face) override {}
 
     void draw(const DisplayBuffer& display_buffer,
               const Face& default_face,

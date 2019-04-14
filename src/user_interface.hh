@@ -4,6 +4,7 @@
 #include "array_view.hh"
 #include "hash_map.hh"
 
+#include <iostream>
 #include <functional>
 
 namespace Kakoune
@@ -76,6 +77,8 @@ public:
     virtual void refresh(bool force) = 0;
 
     virtual void set_on_key(OnKeyCallback callback) = 0;
+
+    virtual void show_error(StringView message, Face face) = 0;
 
     using Options = HashMap<String, String, MemoryDomain::Options>;
     virtual void set_ui_options(const Options& options) = 0;

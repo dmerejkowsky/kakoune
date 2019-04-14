@@ -3,9 +3,6 @@ try {
    use(test_file_name)
    kak.command("quit")
 } catch (e) {
-   kak.command("edit err")
-   var buffer = kak.buffer()
-   buffer.write(e)
-   kak.command("write")
+   kak.error(e)
    kak.command("quit 2")
 }

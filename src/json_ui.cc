@@ -228,6 +228,11 @@ void JsonUI::info_hide()
     rpc_call("info_hide");
 }
 
+void JsonUI::show_error(StringView message, Face)
+{
+    rpc_call("error", message);
+}
+
 void JsonUI::set_cursor(CursorMode mode, DisplayCoord coord)
 {
     rpc_call("set_cursor", mode, coord);

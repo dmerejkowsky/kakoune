@@ -28,6 +28,7 @@
 #include "window.hh"
 #include "clock.hh"
 
+#include <iostream>
 #include <fcntl.h>
 #include <locale>
 #include <sys/stat.h>
@@ -469,6 +470,10 @@ std::unique_ptr<UserInterface> make_ui(UIType ui_type)
 
         void info_show(StringView, StringView, DisplayCoord, Face, InfoStyle) override {}
         void info_hide() override {}
+
+        void show_error(StringView message, Face) override {
+            std::cerr << message.data() << std::endl;
+        }
 
         void draw(const DisplayBuffer&, const Face&, const Face&) override {}
         void draw_status(const DisplayLine&, const DisplayLine&, const Face&) override {}

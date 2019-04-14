@@ -47,6 +47,7 @@ public:
     DisplayCoord dimensions() override;
     void set_on_key(OnKeyCallback callback) override;
     void set_ui_options(const Options& options) override;
+    void show_error(StringView message, Face face) override;
 
 private:
     void parse_requests(EventMode mode);
