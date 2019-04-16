@@ -99,6 +99,14 @@ struct Kak {
   Kak(Context& context):
      m_context(context) {}
 
+  void set_args(const std::vector<std::string>& args) {
+    m_args = args;
+  }
+
+  std::vector<std::string> args() {
+    return m_args;
+  }
+
   void debug(const std::string& message_s) {
     String message = String{message_s.c_str()};
     write_to_debug_buffer(message);
@@ -206,8 +214,17 @@ struct Kak {
       CommandManager::instance().execute(String{command_line.c_str()}, m_context);
   }
 
+  void quit() {
+    execute_cmd("quit");
+  }
+
+  void quit(int rc) {
+    execute_cmd("quit "s + std::to_string(rc));
+  }
+
   private:
     Context& m_context;
+    std::vector<std::string> m_args;
 
 };
 
@@ -215,18 +232,20 @@ struct Kak {
 
 Script::Script(Context& context):
   m_chai(new chaiscript::ChaiScript()),
-  m_context(context)
+  m_context(context),
+  m_kak(new Chai::Kak(m_context))
 {
 
-  m_chai->add(chaiscript::bootstrap::standard_library::vector_type<std::vector<std::string>>("VectorString"));
-
-  Chai::Kak kak(m_context);
+   m_chai->add(chaiscript::bootstrap::standard_library::vector_type<std::vector<std::string>>("VectorString"));
 
    m_chai->add(chaiscript::user_type<Chai::Kak>(), "Kak");
-   m_chai->add(chaiscript::var(kak), "kak");
+   m_chai->add(chaiscript::var(m_kak), "kak");
+   m_chai->add(chaiscript::fun(&Chai::Kak::args), "args");
    m_chai->add(chaiscript::fun(&Chai::Kak::debug), "debug");
    m_chai->add(chaiscript::fun(&Chai::Kak::echo), "echo");
    m_chai->add(chaiscript::fun(&Chai::Kak::error), "error");
+   m_chai->add(chaiscript::fun<void, Chai::Kak>(&Chai::Kak::quit), "quit");
+   m_chai->add(chaiscript::fun<void, Chai::Kak, int>(&Chai::Kak::quit), "quit");
 
    m_chai->add(chaiscript::fun(&Chai::Kak::get_option), "get_option");
    m_chai->add(chaiscript::fun(&Chai::Kak::val), "val");
@@ -245,8 +264,13 @@ Script::Script(Context& context):
 
 
 
-void Script::eval_file(String file_path) {
+void Script::eval_file(String file_path, ConstArrayView<String> args) {
   const char* ptr = file_path.data();
+  std::vector<std::string> std_args;
+  for (const auto arg: args) {
+    std_args.push_back(std::string{arg.data()});
+  }
+  m_kak->set_args(std_args);
   try {
     m_chai->eval_file(ptr, chaiscript::exception_specification<const std::string&>());
   } catch (const chaiscript::exception::eval_error &e) {  // error while parsing/running script

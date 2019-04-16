@@ -33,10 +33,6 @@ def build(build_path):
 
 
 def run_tests(kak_path, matching):
-    kak_cmd = textwrap.dedent("""\
-        declare-option str test_file_name @test_file@
-        chai-eval-file run.chai
-    """)
     this_path = Path(__file__).parent
     num_tests = 0
     num_fails = 0
@@ -45,7 +41,7 @@ def run_tests(kak_path, matching):
             continue
         num_tests += 1
         ui.info(ui.green, test_file.name.replace(".test.chai", ""))
-        cmd_for_test = kak_cmd.replace("@test_file@", test_file)
+        cmd_for_test = f"chai-eval-file run.chai {test_file}"
         process = subprocess.Popen(
             [kak_path, "-e", cmd_for_test, "-n", "-ui", "json"],
             stdout=subprocess.PIPE,

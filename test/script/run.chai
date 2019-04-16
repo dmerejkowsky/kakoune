@@ -1,8 +1,13 @@
-var test_file_name = kak.get_option("string", "test_file_name")
+var args = kak.args()
+if (args.size() < 2) {
+  kak.error("Usage: run.chai <file name>");
+  kak.quit(2);
+}
+var test_file_name = args[1];
 try {
    use(test_file_name)
-   kak.command("quit")
+   kak.quit()
 } catch (e) {
    kak.error(e)
-   kak.command("quit 2")
+   kak.quit(2)
 }

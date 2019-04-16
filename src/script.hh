@@ -12,14 +12,20 @@ namespace chaiscript {
 namespace Kakoune
 {
 
+namespace Chai {
+  struct Kak;
+}
+
+
 struct Script {
   public:
     explicit Script(Context& context);
-    void eval_file(String file_path);
+    void eval_file(String file_path, ConstArrayView<String> args);
     void eval_code(String code);
   private:
     Context& m_context;
     chaiscript::ChaiScript* m_chai;
+    Chai::Kak* m_kak;
 };
 
 }

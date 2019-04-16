@@ -2342,7 +2342,10 @@ const CommandDesc chai_eval_file = {
   "chai-eval-file",
   nullptr,
   "chai-eval-file <path>: eval chai script command",
-  ParameterDesc{
+  {
+    {},
+    ParameterDesc::Flags::None,
+    1, 256
   },
   CommandFlags::None,
   CommandHelper{},
@@ -2351,8 +2354,9 @@ const CommandDesc chai_eval_file = {
   [](const ParametersParser& parser, Context& context, const ShellContext&)
   {
         String script_path = parser[0];
+        const auto args = Vector<String>(parser.begin(), parser.end());
         Script script(context);
-        script.eval_file(script_path);
+        script.eval_file(script_path, args);
   }
 
 };
