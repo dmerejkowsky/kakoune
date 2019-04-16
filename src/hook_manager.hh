@@ -117,6 +117,8 @@ public:
 
     void add_hook(Hook hook, String group, HookFlags flags,
                   Regex filter, String commands);
+    void add_hook(Hook hook, String group, HookFlags flags,
+                  Regex filter, std::function<void(void)> func);
     void remove_hooks(const Regex& regex);
     CandidateList complete_hook_group(StringView prefix, ByteCount pos_in_token);
     void run_hook(Hook hook, StringView param, Context& context);

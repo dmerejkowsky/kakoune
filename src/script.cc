@@ -17,6 +17,7 @@
 #include "option.hh"
 #include "option_manager.hh"
 #include "option_types.hh"
+#include "regex.hh"
 #include "scope.hh"
 #include "shell_manager.hh"
 #include "string.hh"
@@ -214,6 +215,13 @@ struct Kak {
       CommandManager::instance().execute(String{command_line.c_str()}, m_context);
   }
 
+  void hook(const std::string& scope, const std::string& name, const std::string& pattern, const std::function<void (void)> &func) {
+    auto hooks = m_context.hooks();
+    // FIXME: what is the group?
+    auto const regex = Regex(StringView{pattern.c_str()});
+    hooks.add_hook(Hook::BufCreate, "global", HookFlags::Always, regex, func);
+  }
+
   void quit() {
     execute_cmd("quit");
   }
@@ -222,11 +230,17 @@ struct Kak {
     execute_cmd("quit "s + std::to_string(rc));
   }
 
+  void some_func(const std::function<int (int)> &t_func) {
+    const auto res = t_func(4);
+    echo("some_func called other func and got"s + std::to_string(res));
+  }
+
   private:
     Context& m_context;
     std::vector<std::string> m_args;
 
 };
+
 
 } // namespace Chai
 
@@ -238,6 +252,8 @@ Script::Script(Context& context):
 
    m_chai->add(chaiscript::bootstrap::standard_library::vector_type<std::vector<std::string>>("VectorString"));
 
+   m_chai->add(chaiscript::fun(&Chai::Kak::some_func), "some_func");
+
    m_chai->add(chaiscript::user_type<Chai::Kak>(), "Kak");
    m_chai->add(chaiscript::var(m_kak), "kak");
    m_chai->add(chaiscript::fun(&Chai::Kak::args), "args");
@@ -246,6 +262,7 @@ Script::Script(Context& context):
    m_chai->add(chaiscript::fun(&Chai::Kak::error), "error");
    m_chai->add(chaiscript::fun<void, Chai::Kak>(&Chai::Kak::quit), "quit");
    m_chai->add(chaiscript::fun<void, Chai::Kak, int>(&Chai::Kak::quit), "quit");
+   m_chai->add(chaiscript::fun(&Chai::Kak::hook), "hook");
 
    m_chai->add(chaiscript::fun(&Chai::Kak::get_option), "get_option");
    m_chai->add(chaiscript::fun(&Chai::Kak::val), "val");

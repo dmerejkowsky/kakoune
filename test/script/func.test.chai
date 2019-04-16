@@ -1,0 +1,8 @@
+kak.echo("hello")
+def my_func(x) { x + 4 }
+def set_chai_filetype() {
+  kak.debug("setting filetype to chai")
+  kak.set_option("buffer", "filetype", "chai")
+}
+kak.hook("global", "BufCreate", ".*", set_chai_filetype)
+kak.echo("hook is set")
