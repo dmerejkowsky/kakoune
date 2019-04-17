@@ -1,9 +1,9 @@
-print("test is running")
-kak.hook("global", "BufCreate", ".*", fun() {
-  print("Hello from hook");
-})
-
-kak.command("hook global BufCreate .* \"echo -debug called from command\"")
+print("hi")
+kak.command("set-option global debug hooks")
+def my_func() {
+  print("hey")
+}
+kak.command("hook global BufCreate .* \"chai-eval-code my_func()\"")
 kak.command("edit foo.chai")
 kak.command("edit *debug*")
 var debug_buffer = kak.buffer()
