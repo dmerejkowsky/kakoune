@@ -156,7 +156,6 @@ struct Kak {
 
 
   void set_option(const std::string& scope_s, const std::string& name_s, const std::vector<chaiscript::Boxed_Value>& params) {
-
     auto scope = String{scope_s.c_str()};
     auto name = String{name_s.c_str()};
     Option& option = get_options(scope, m_context, name).get_local_option(name);
@@ -214,11 +213,29 @@ struct Kak {
       CommandManager::instance().execute(String{command_line.c_str()}, m_context);
   }
 
-  void hook(const std::string& scope, const std::string& name, const std::string& pattern, const std::function<void (void)> &func) {
-    auto hooks = m_context.hooks();
-    // FIXME: what is the group?
-    auto const regex = Regex(StringView{pattern.c_str()});
-    hooks.add_hook(Hook::BufCreate, "global", HookFlags::Always, regex, func);
+  void hook(const std::string& scope_s, const std::string& name_s, const std::string& filter_s, const std::function<void (void)> &func) {
+      auto const scope  = String{scope_s.c_str()};
+      auto const name = String{name_s.c_str()};
+      auto const filter = String{filter_s.c_str()};
+      auto descs = enum_desc(Meta::Type<Hook>{});
+      auto it = find_if(descs, [&](const EnumDesc<Hook>& desc) { return desc.name == name; });
+      if (it == descs.end())
+          throw runtime_error{format("no such hook: '{}'", name)};
+
+      Regex regex{filter, RegexCompileFlags::Optimize};
+
+      // TODO: allow custom group
+      auto group = StringView{};
+
+      if (any_of(group, [](char c) { return not is_word(c, { '-' }); }) or
+          (not group.empty() and not is_word(group[0])))
+          throw runtime_error{format("invalid group name '{}'", group)};
+
+      // TODO: allow 'always', 'once'
+      const auto flags = HookFlags::None;
+
+      auto hooks = get_scope(String{scope.c_str()}, m_context).hooks();
+      hooks.add_hook(it->value, group.str(), flags, std::move(regex), func);
   }
 
   void quit() {
