@@ -1,11 +1,12 @@
 print("hi")
-kak.command("set-option global debug hooks")
-def my_func() {
-  print("hey")
-}
-kak.command("hook global BufCreate .* \"chai-eval-code my_func()\"")
+// kak.command("hook global BufCreate .* \"echo -debug hello\"")
+
+kak.hook("global", "BufCreate", ".*", fun(buf_name) {
+  print(buf_name)
+})
+
 kak.command("edit foo.chai")
 kak.command("edit *debug*")
-var debug_buffer = kak.buffer()
-print(debug_buffer.read())
+var buffer = kak.buffer()
+print(buffer.read())
 kak.quit()

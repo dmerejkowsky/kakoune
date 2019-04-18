@@ -20,22 +20,22 @@ struct HookManager::HookData
     HookFlags flags;
     Regex filter;
     String commands;
-    std::function<void(void)> func;
+    std::function<void(StringView&)> func;
 };
 
 HookManager::HookManager() : m_parent(nullptr) {}
 HookManager::HookManager(HookManager& parent) : SafeCountable{}, m_parent(&parent) {}
 HookManager::~HookManager() = default;
 
-void do_noting() {}
+void do_nothing(StringView&) {}
 
 void HookManager::add_hook(Hook hook, String group, HookFlags flags, Regex filter, String commands)
 {
     auto& hooks = m_hooks[to_underlying(hook)];
-    hooks.emplace_back(new HookData{std::move(group), flags, std::move(filter), std::move(commands), do_noting});
+    hooks.emplace_back(new HookData{std::move(group), flags, std::move(filter), std::move(commands), do_nothing});
 }
 
-void HookManager::add_hook(Hook hook, String group, HookFlags flags, Regex filter, std::function<void(void)> func)
+void HookManager::add_hook(Hook hook, String group, HookFlags flags, Regex filter, std::function<void(StringView&)> func)
 {
     auto& hooks = m_hooks[to_underlying(hook)];
     hooks.emplace_back(new HookData{std::move(group), flags, std::move(filter), {}, func});
@@ -131,7 +131,7 @@ void HookManager::run_hook(Hook hook, StringView param, Context& context)
                 env_vars.insert({format("hook_param_capture_{}", i),
                                  {to_run.captures[i].first, to_run.captures[i].second}});
 
-						to_run.hook->func();
+						to_run.hook->func(param);
             CommandManager::instance().execute(to_run.hook->commands, context,
                                                { {}, std::move(env_vars) });
 

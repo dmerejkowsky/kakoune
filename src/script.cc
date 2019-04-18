@@ -213,7 +213,7 @@ struct Kak {
       CommandManager::instance().execute(String{command_line.c_str()}, m_context);
   }
 
-  void hook(const std::string& scope_s, const std::string& name_s, const std::string& filter_s, const std::function<void (void)> &func) {
+  void hook(const std::string& scope_s, const std::string& name_s, const std::string& filter_s, const std::function<void (const std::string&)> &func_s) {
       auto const scope  = String{scope_s.c_str()};
       auto const name = String{name_s.c_str()};
       auto const filter = String{filter_s.c_str()};
@@ -235,6 +235,7 @@ struct Kak {
       const auto flags = HookFlags::None;
 
       auto hooks = get_scope(String{scope.c_str()}, m_context).hooks();
+      auto func = [&func_s](StringView& s) { func_s(std::string{s.data()}) ; };
       hooks.add_hook(it->value, group.str(), flags, std::move(regex), func);
   }
 
