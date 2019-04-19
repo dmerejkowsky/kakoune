@@ -169,6 +169,21 @@ add_library(kakoune
   ${_version_cpp}
 )
 
+set_target_properties(kakoune
+  PROPERTIES
+   COMPILE_FLAGS
+     "-pedantic \
+      -Wall \
+      -Wextra \
+      -Wno-unused-parameter \
+      -Wno-reorder \
+      -Wno-sign-compare \
+      -Wno-address \
+      -Wno-noexcept-type \
+      -Wno-unknown-attributes \
+      -Wno-unknown-warning-option"
+)
+
 set(_kak_defs)
 target_compile_definitions(kakoune PUBLIC "KAKOUNE_RUNTIME_PATH=\"${CMAKE_SOURCE_DIR}/share/kak\"")
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
