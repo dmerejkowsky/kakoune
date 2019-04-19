@@ -163,7 +163,7 @@ struct Kak {
     Option& option = get_options(scope, m_context, name).get_local_option(name);
 
     Vector<String> kak_params;
-    for (const  auto param: params) {
+    for (const  auto& param: params) {
         auto val = param.get();
        	const auto string_val_ptr = val.cast<std::shared_ptr<std::string>>();
         kak_params.push_back(String{string_val_ptr.get()->c_str()});
@@ -245,11 +245,10 @@ struct Kak {
 } // namespace Chai
 
 Script::Script(Context& context):
-  m_chai(new chaiscript::ChaiScript()),
   m_context(context),
+  m_chai(new chaiscript::ChaiScript()),
   m_kak(new Chai::Kak(m_context))
 {
-
    m_chai->add(chaiscript::bootstrap::standard_library::vector_type<std::vector<std::string>>("VectorString"));
 
    m_chai->add(chaiscript::fun(&Chai::Kak::some_func), "some_func");
@@ -284,7 +283,7 @@ Script::Script(Context& context):
 void Script::eval_file(String file_path, ConstArrayView<String> args) {
   const char* ptr = file_path.data();
   std::vector<std::string> std_args;
-  for (const auto arg: args) {
+  for (const auto& arg: args) {
     std_args.push_back(std::string{arg.data()});
   }
   m_kak->set_args(std_args);
