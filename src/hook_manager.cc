@@ -72,7 +72,12 @@ CandidateList HookManager::complete_hook_group(StringView prefix, ByteCount pos_
 
 void HookManager::run_hook(Hook hook, StringView param, Context& context)
 {
+
     auto& hook_list = m_hooks[to_underlying(hook)];
+    if (hook == Hook::BufCreate && param != "*debug*" && param != "*scratch*") {
+        const auto message = format("{}: Running {} hooks for {}", hook_list.size(), param);
+        write_to_debug_buffer(message);
+    }
 
     const bool only_always = context.hooks_disabled();
     auto& disabled_hooks = context.options()["disabled_hooks"].get<Regex>();

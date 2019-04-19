@@ -1,3 +1,11 @@
-kak.hook("global", "bufcreate", ".*[.]chai", fun() {
-  kak.set_option("buffer", "filetype", "chai");
+print("test is running")
+kak.hook("global", "BufCreate", ".*", fun() {
+  print("Hello from hook");
 })
+
+kak.command("hook global BufCreate .* \"echo -debug called from command\"")
+kak.command("edit foo.chai")
+kak.command("edit *debug*")
+var debug_buffer = kak.buffer()
+print(debug_buffer.read())
+kak.quit()
