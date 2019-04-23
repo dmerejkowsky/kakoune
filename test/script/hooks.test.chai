@@ -1,8 +1,7 @@
-print("hi")
-// kak.command("hook global BufCreate .* \"echo -debug hello\"")
+kak.command("hook global BufCreate .* \"echo -debug hello\"")
 
 kak.hook("global", "BufCreate", ".*", fun(buf_name) {
-  print(buf_name)
+  kak.debug(buf_name)
 })
 
 kak.command("edit foo.chai")
