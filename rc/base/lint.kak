@@ -142,7 +142,8 @@ define-command lint-next-error -docstring "Jump to the next line that contains a
         if [ -n "${range}" ]; then
             printf 'select %s\n' "${range}"
         else
-            printf 'echo -markup "{Error}no lint diagnostics"\n'
+            printf "fail no lint diagnostics"
+            exit 1
         fi
     }
 }
